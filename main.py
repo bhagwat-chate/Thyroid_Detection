@@ -4,5 +4,6 @@ if __name__ == '__main__':
 
     obj1 = Raw_Data_Validation("Thyroid")
     obj1.valuesFromSchema()
+    obj1.createDirectoryGoodBadRawData()
 
     print("DONE")
