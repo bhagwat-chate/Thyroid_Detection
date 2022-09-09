@@ -5,7 +5,8 @@ if __name__ == '__main__':
     obj = Raw_Data_Validation("Thyroid")
     obj.valuesFromSchema()
     obj.createDirectoryGoodBadRawData()
-    obj.deleteExistingGoodDataTrainingFolder()
-    obj.deleteExistingBadDataTrainingFolder()
+    # obj.deleteExistingGoodDataTrainingFolder()
+    # obj.deleteExistingBadDataTrainingFolder()
+    obj.validateColumnLength(30)
 
     print("DONE")

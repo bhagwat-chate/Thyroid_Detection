@@ -170,3 +170,26 @@ class Raw_Data_Validation:
             message = "*** Exception occurred in the method 'deleteExistingBadDataTrainingFolder' of class 'Raw_Data_Validation'. \n {v}".format(v=e)
             self.logger.log(file_object, message)
             file_object.close()
+
+    def validateColumnLength(self, numberOfColumn):
+        log_file_object = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
+        log_file_column_length = open("Training_Log/Training_Raw_File_Col_Length.txt", "a")
+        message = "Entered into the method 'validateColumnLength' of class 'Raw_Data_Validation'."
+        self.logger.log(log_file_object, message)
+        try:
+            for file in listdir("Training_Raw_Files_Validated/Good_Raw/"):
+                csv = pd.read_csv("Training_Raw_Files_Validated/Good_Raw/"+file)
+                if csv.shape[1] == numberOfColumn:
+                    self.logger.log(log_file_column_length, "valid column length for the file: %s" % file)
+                else:
+                    shutil.move("Training_Raw_Files_Validated/Good_Raw/"+file, "Training_Raw_Files_Validated/Bad_Raw/")
+                    self.logger.log(log_file_column_length, "invalid column length for the file: {v}, moved to Bad_Raw directory".format(v=file))
+            log_file_column_length.close()
+            self.logger.log(log_file_object, "Column length validation complete!")
+            self.logger.log(log_file_object, "Exited from the method 'validateColumnLength' of class 'Raw_Data_Validation'."+'\n')
+            log_file_object.close()
+        except Exception as e:
+            message = "*** Exception occurred in the method 'validateColumnLength' of class 'Raw_Data_Validation'. \n {v}".format(v=e)
+            self.logger.log(log_file_object, message)
+            log_file_object.close()
+            log_file_column_length.close()
