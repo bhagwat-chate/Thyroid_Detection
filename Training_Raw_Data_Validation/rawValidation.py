@@ -46,7 +46,7 @@ class Raw_Data_Validation:
 
                 message = "Exited from the method 'valuesFromSchema' of class 'Raw_Data_Validation'."
                 file_object = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
-                self.logger.log(file_object, message)
+                self.logger.log(file_object, message+'\n')
                 file_object.close()
 
         except Exception as e:
@@ -99,7 +99,7 @@ class Raw_Data_Validation:
 
             message = "Exited from the method 'createDirectoryGoodBadRawData' of class 'Raw_Data_Validation'."
             file_object = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
-            self.logger.log(file_object, message)
+            self.logger.log(file_object, message+'\n')
             file_object.close()
 
         except Exception as e:
@@ -133,7 +133,7 @@ class Raw_Data_Validation:
 
             message = "Exited from the method 'deleteExistingGoodDataTrainingFolder' of class 'Raw_Data_Validation'."
             file_object = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
-            self.logger.log(file_object, message)
+            self.logger.log(file_object, message+'\n')
             file_object.close()
         except Exception as e:
             message = "*** Exception occurred in the method 'deleteExistingGoodDataTrainingFolder' of class 'Raw_Data_Validation'. \n {v}".format(v=e)
