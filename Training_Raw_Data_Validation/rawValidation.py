@@ -120,23 +120,53 @@ class Raw_Data_Validation:
         Version: 1.0
         Revisions: None
         """
-        message = "Entered into the method 'deleteExistingGoodDataTrainingFolder' of class 'Raw_Data_Validation'."
         file_object = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
+        message = "Entered into the method 'deleteExistingGoodDataTrainingFolder' of class 'Raw_Data_Validation'."
         self.logger.log(file_object, message)
         try:
             path = "Training_Raw_Files_Validated/"
             if os.path.isdir(path + "/Good_Raw"):
                 shutil.rmtree(path + "/Good_Raw")
                 message = "Good_Raw directory deleted successfully."
-                file_object = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
                 self.logger.log(file_object, message)
-
+            else:
+                self.logger.log(file_object, "'Good_Raw' directory not available for delete")
             message = "Exited from the method 'deleteExistingGoodDataTrainingFolder' of class 'Raw_Data_Validation'."
-            file_object = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
             self.logger.log(file_object, message+'\n')
             file_object.close()
         except Exception as e:
             message = "*** Exception occurred in the method 'deleteExistingGoodDataTrainingFolder' of class 'Raw_Data_Validation'. \n {v}".format(v=e)
-            file_object = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
+            self.logger.log(file_object, message)
+            file_object.close()
+
+    def deleteExistingBadDataTrainingFolder(self):
+        """
+        Method Name: deleteExistingBadDataTrainingFolder
+        Description: This method deletes the directory made  to store the Good Data after loading the data in the table. Once the good files are
+                      loaded in the DB,deleting the directory ensures space optimization.
+        Output: None
+        On Failure: OSError
+
+        Written By: Bhagwat Chate
+        Version: 1.0
+        Revisions: None
+        """
+        file_object = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
+        message = "Entered into the method 'deleteExistingBadDataTrainingFolder' of class 'Raw_Data_Validation'."
+        self.logger.log(file_object, message)
+        try:
+            path = "Training_Raw_Files_Validated/"
+            if os.path.isdir(path + "/Bad_Raw"):
+                shutil.rmtree(path + "/Bad_Raw")
+                message = "'Bad_Raw' directory deleted successfully."
+                file_object = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
+                self.logger.log(file_object, message)
+            else:
+                self.logger.log(file_object, "'Bad_Raw' directory not available for delete")
+            message = "Exited from the method 'deleteExistingBadDataTrainingFolder' of class 'Raw_Data_Validation'."
+            self.logger.log(file_object, message+'\n')
+            file_object.close()
+        except Exception as e:
+            message = "*** Exception occurred in the method 'deleteExistingBadDataTrainingFolder' of class 'Raw_Data_Validation'. \n {v}".format(v=e)
             self.logger.log(file_object, message)
             file_object.close()

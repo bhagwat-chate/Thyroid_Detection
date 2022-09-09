@@ -6,5 +6,6 @@ if __name__ == '__main__':
     obj.valuesFromSchema()
     obj.createDirectoryGoodBadRawData()
     obj.deleteExistingGoodDataTrainingFolder()
+    obj.deleteExistingBadDataTrainingFolder()
 
     print("DONE")
