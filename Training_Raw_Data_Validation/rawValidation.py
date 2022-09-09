@@ -54,3 +54,18 @@ class Raw_Data_Validation:
             file_object = open("Training_Log/Log_Values_From_Schema.txt", "a")
             self.logger.log(file_object, message)
             file_object.close()
+
+    def manualRegexCreation(self):
+        """
+            Method Name: manualRegexCreation
+            Description: This method contains a manually defined regex based on the "FileName" given in "Schema" file.
+                         This Regex is used to validate the filename of the training data.
+            Output: Regex pattern
+            On Failure: None
+
+            Written By: Bhagwat Chate
+            Version: 1.0
+            Revisions: None
+        """
+        regex = "['hypothyroid']+['\_'']+[\d_]+[\d]+\.csv"
+        return regex
