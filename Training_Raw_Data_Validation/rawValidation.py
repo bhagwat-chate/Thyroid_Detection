@@ -16,6 +16,9 @@ class Raw_Data_Validation:
     """
 
     def __init__(self, path):
+        self.LengthOfDateStampInFile = 0
+        self.LengthOfTimeStampInFile = 0
+        self.NumberOfColumns = 0
         self.batch_directory = path
         self.schema_path = 'schema_training.json'
         self.logger = App_logger()
@@ -36,11 +39,11 @@ class Raw_Data_Validation:
                 dic = json.load(f)
                 f.close()
                 pattern = dic["SampleFileName"]
-                LengthOfDateStampInFile = dic["LengthOfDateStampInFile"]
-                LengthOfTimeStampInFile = dic["LengthOfTimeStampInFile"]
-                NumberOfColumns = dic["NumberOfColumns"]
+                self.LengthOfDateStampInFile = dic["LengthOfDateStampInFile"]
+                self.LengthOfTimeStampInFile = dic["LengthOfTimeStampInFile"]
+                self.NumberOfColumns = dic["NumberOfColumns"]
 
-                message = "Length Of Date Stamp In File:: %s" %LengthOfDateStampInFile + "\t" + "Length Of Time Stamp In File:: %s" %LengthOfTimeStampInFile+"\t"+"Number Of Columns:: %s" %NumberOfColumns
+                message = "Length Of Date Stamp In File:: %s" %self.LengthOfDateStampInFile + "\t" + "Length Of Time Stamp In File:: %s" %self.LengthOfTimeStampInFile+"\t"+"Number Of Columns:: %s" %self.NumberOfColumns
                 file_object = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
                 self.logger.log(file_object, message)
 
@@ -177,12 +180,13 @@ class Raw_Data_Validation:
         message = "Entered into the method 'validateColumnLength' of class 'Raw_Data_Validation'."
         self.logger.log(log_file_object, message)
         try:
-            for file in listdir("Training_Raw_Files_Validated/Good_Raw/"):
-                csv = pd.read_csv("Training_Raw_Files_Validated/Good_Raw/"+file)
+            for file in listdir("Training_Batch_Files/"):
+                csv = pd.read_csv("Training_Batch_Files/"+file)
                 if csv.shape[1] == numberOfColumn:
-                    self.logger.log(log_file_column_length, "valid column length for the file: %s" % file)
+                    shutil.copy("Training_Batch_Files/"+file, "Training_Raw_Files_Validated/Good_Raw/")
+                    self.logger.log(log_file_column_length, "valid column length for the file: {v}, moved to Good_Raw directory".format(v=file))
                 else:
-                    shutil.move("Training_Raw_Files_Validated/Good_Raw/"+file, "Training_Raw_Files_Validated/Bad_Raw/")
+                    shutil.copy("Training_Batch_Files/"+file, "Training_Raw_Files_Validated/Bad_Raw/")
                     self.logger.log(log_file_column_length, "invalid column length for the file: {v}, moved to Bad_Raw directory".format(v=file))
             log_file_column_length.close()
             self.logger.log(log_file_object, "Column length validation complete!")
@@ -193,3 +197,53 @@ class Raw_Data_Validation:
             self.logger.log(log_file_object, message)
             log_file_object.close()
             log_file_column_length.close()
+
+    def validationFileNameRaw(self):
+        """
+        Method Name: validationFileNameRaw
+        Description: This function validates the name of the training csv files as per given name in the schema!
+                    Regex pattern is used to do the validation.If name format do not match the file is moved
+                    to Bad Raw Data folder else in Good raw data.
+        Output: None
+        On Failure: Exception
+        Written By: Bhagwat Chate
+        Version: 1.0
+        Revisions: None
+        """
+        log_file = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
+        message = "Entered into the method 'validationFileNameRaw' of class 'Raw_Data_Validation'."
+        self.logger.log(log_file, message)
+
+        # self.deleteExistingGoodDataTrainingFolder()
+        # self.deleteExistingBadDataTrainingFolder()
+        # self.createDirectoryGoodBadRawData()
+
+        onlyfiles = [f for f in listdir("Training_Raw_Files_Validated/Good_Raw/")]
+        regex = self.manualRegexCreation()
+
+        try:
+            f = open("Training_Log/Training_Raw_File_Name_Log.txt", "a")
+            for filename in onlyfiles:
+                if (re.match(regex, filename)):
+                    splitAtDot = re.split('.csv', filename)
+                    splitAtDot = (re.split('_', splitAtDot[0]))
+
+                    if (len(splitAtDot[1]) == self.LengthOfDateStampInFile) and (len(splitAtDot[2]) == self.LengthOfTimeStampInFile):
+                        self.logger.log(f, "valid file name: {v}".format(v=filename))
+                    else:
+                        shutil.move("Training_Raw_Files_Validated/Good_Raw/"+filename, "Training_Raw_Files_Validated/Bad_Raw/")
+                        self.logger.log(f, "invalid file name: {v}, file moved to Bad_Raw".format(v=filename))
+                else:
+                    shutil.move("Training_Raw_Files_Validated/Good_Raw/" + filename, "Training_Raw_Files_Validated/Bad_Raw/")
+                    self.logger.log(f, "invalid file name: {v}, file moved to Bad_Raw".format(v=filename))
+
+            self.logger.log(log_file, "validation of file name raw complete!")
+            self.logger.log(log_file, "Exited from the method 'validationFileNameRaw' of class 'Raw_Data_Validation'." + '\n')
+            f.close()
+            log_file.close()
+        except Exception as e:
+            message = "*** Exception occurred in the method 'validationFileNameRaw' of class 'Raw_Data_Validation'. \n {v}".format(v=e)
+            self.logger.log(log_file, message)
+            log_file.close()
+
+
