@@ -286,3 +286,101 @@ class Raw_Data_Validation:
             self.logger.log(log_file, message)
             log_file.close()
             log_col_missing_value.close()
+
+    # def moveBadFilesToArchiveBad(self):
+    #     """
+    #     Method Name: moveBadFilesToArchiveBad
+    #     Description: This method deletes the directory made  to store the Bad Data
+    #                  after moving the data in an archive folder. We archive the bad
+    #                  files to send them back to the client for invalid data issue.
+    #     Output: None
+    #     On Failure: OSError
+    #     Written By: Bhagwat Chate
+    #     Version: 1.0
+    #     Revisions: None
+    #     """
+    #     log_file = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
+    #     message = "Entered into the method 'moveBadFilesToArchiveBad' of class 'Raw_Data_Validation'."
+    #     self.logger.log(log_file, message)
+    #
+    #     now = datetime.now()
+    #     date = now.date()
+    #     time = now.strftime("%H:%M:%S")
+    #
+    #     try:
+    #         source = "Training_Raw_Files_Validated/Bad_Raw/"
+    #         if os.path.isdir(source):
+    #             path = "TrainingArchiveBadData"
+    #             if not os.path.isdir(path):
+    #                 os.makedirs(path)
+    #             dest = "TrainingArchiveBadData/BadData_"+str(date)+"_"+str(time)
+    #             if not os.path.isdir(dest):
+    #                 os.makedirs(dest)
+    #             files = os.listdir(source)
+    #             for f in files:
+    #                 if f not in os.listdir(dest):
+    #                     shutil.move(source + f, dest)
+    #             self.logger.log(log_file, "Bad files moved to archive")
+    #             if os.path.isdir(path + 'Bad_Raw/'):
+    #                 os.rmtree(path + 'Bad_Raw')
+    #             self.logger.log(log_file, "Bad Raw data directory deleted.")
+    #         self.logger.log(log_file,"Exited from the method 'moveBadFilesToArchiveBad' of class 'Raw_Data_Validation'." + '\n')
+    #         log_file.close()
+    #     except Exception as e:
+    #         message = "*** Exception occurred in the method 'moveBadFilesToArchiveBad' of class 'Raw_Data_Validation'. \n {v}".format(v=e)
+    #         self.logger.log(log_file, message)
+    #         log_file.close()
+
+    def moveBadFilesToArchiveBad(self):
+        """
+        Method Name: moveBadFilesToArchiveBad
+        Description: This method delete the directory made to store the Bad Data after moving the data in an archive
+                     folder. We archive the bad data files to send them back to the client for invalid data issue.
+        Output: None
+        On Failure: OSError
+
+        Written By: Bhagwat Chate
+        Version: 1.0
+        Revision: None
+        """
+        file = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
+        message = "Entered into the method 'moveBadFilesToArchiveBad' of class 'Raw_Data_Validation'."
+        self.logger.log(file, message)
+
+        now = datetime.now()
+        date = now.date()
+        time = now.time()
+
+        try:
+            source = "Training_Raw_Files_Validated/Bad_Raw/"
+            if os.path.isdir(source):
+                path = "TrainingArchiveBadData"
+                if not os.path.isdir(path):
+                    os.makedirs(path)
+                time = str(time)
+                time = time.replace(":", "_")
+                dest = "TrainingArchiveBadData/BadData_" + str(date) + "_" + str(time)
+                if not os.path.isdir(dest):
+                    os.makedirs(dest)
+                files = os.listdir(source)
+                for f in files:
+                    if f not in os.listdir(dest):
+                        shutil.move(source + f, dest)
+                self.logger.log(file, "Files successfully moved to: "+str(dest))
+                self.deleteExistingBadDataTrainingFolder()
+            else:
+                self.logger.log(file, "Nothing for archive!")
+            self.logger.log(file, "Training Bad Raw Data archive complete, Bad Raw directory deleted.")
+            self.logger.log(file,"Exited from the method 'moveBadFilesToArchiveBad' of class 'Raw_Data_Validation'." + '\n')
+            file.close()
+        except OSError as e:
+            file = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
+            message = "OS Error occurred while creating "+str(dest)+ " and moving files from " + str(source)
+            self.logger.log(file, message)
+            file.close()
+        except Exception as e:
+            file = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
+            message = "Exception occurred while creating " + str(dest) + " and moving files from " + str(source)
+            self.logger.log(file, message)
+            self.logger.log(file, "Exception: {v}".format(v=e))
+            file.close()

@@ -1,6 +1,10 @@
 from Training_Raw_Data_Validation.rawValidation import Raw_Data_Validation
+from Training_Log.clear_log import truncate_file
 
 if __name__ == '__main__':
+
+    cl = truncate_file()
+    cl.truncate_content()
 
     obj = Raw_Data_Validation("Thyroid")
 
@@ -11,5 +15,6 @@ if __name__ == '__main__':
     obj.validateColumnLength()
     obj.validationFileNameRaw()
     obj.validateMissingValuesInWholeColumn()
+    obj.moveBadFilesToArchiveBad()
 
     print("DONE")
