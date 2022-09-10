@@ -8,7 +8,8 @@ if __name__ == '__main__':
     obj.deleteExistingBadDataTrainingFolder()
     obj.createDirectoryGoodBadRawData()
     obj.valuesFromSchema()
-    obj.validateColumnLength(30)
+    obj.validateColumnLength()
     obj.validationFileNameRaw()
+    obj.validateMissingValuesInWholeColumn()
 
     print("DONE")

@@ -174,7 +174,7 @@ class Raw_Data_Validation:
             self.logger.log(file_object, message)
             file_object.close()
 
-    def validateColumnLength(self, numberOfColumn):
+    def validateColumnLength(self):
         log_file_object = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
         log_file_column_length = open("Training_Log/Training_Raw_File_Col_Length.txt", "a")
         message = "Entered into the method 'validateColumnLength' of class 'Raw_Data_Validation'."
@@ -182,7 +182,7 @@ class Raw_Data_Validation:
         try:
             for file in listdir("Training_Batch_Files/"):
                 csv = pd.read_csv("Training_Batch_Files/"+file)
-                if csv.shape[1] == numberOfColumn:
+                if csv.shape[1] == self.NumberOfColumns:
                     shutil.copy("Training_Batch_Files/"+file, "Training_Raw_Files_Validated/Good_Raw/")
                     self.logger.log(log_file_column_length, "valid column length for the file: {v}, moved to Good_Raw directory".format(v=file))
                 else:
@@ -246,4 +246,43 @@ class Raw_Data_Validation:
             self.logger.log(log_file, message)
             log_file.close()
 
+    def validateMissingValuesInWholeColumn(self):
+        """
+        Method Name: validateMissingValuesInWholeColumn
+        Description: This function validates if any column in the csv file has all values missing.
+                     If all the values are missing, the file is not suitable for processing.
+                     SUch files are moved to bad raw data.
+        Output: None
+        On Failure: Exception
+        Written By: Bhagwat Chate
+        Version: 1.0
+        Revisions: None
+        """
+        log_file = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
+        log_col_missing_value = open("Training_Log/Training_Raw_File_Col_Value_Len.txt", "a")
+        message = "Entered into the method 'validateMissingValuesInWholeColumn' of class 'Raw_Data_Validation'."
+        self.logger.log(log_file, message)
 
+        try:
+            for file in listdir("Training_Raw_Files_Validated/Good_Raw/"):
+                csv = pd.read_csv("Training_Raw_Files_Validated/Good_Raw/"+file)
+                count = 0
+                for columns in csv:
+                    if (len(csv[columns]) - csv[columns].count()) == len(csv[columns]):
+                        count = count + 1
+                        shutil.move("Training_Raw_Files_Validated/Good_Raw/" + file, "Training_Raw_Files_Validated/Bad_Raw/")
+                        self.logger.log(log_col_missing_value, "invalid column length in file: {v}, file moved to Bad_Raw".format(v=file))
+                        break
+                if count == 0:
+                    self.logger.log(log_col_missing_value, "no column with 100% missing values in file: {v}".format(v=file))
+
+            self.logger.log(log_file, "validation of missing values in whole column complete.")
+            self.logger.log(log_file,"Exited from the method 'validateMissingValuesInWholeColumn' of class 'Raw_Data_Validation'." + '\n')
+            log_col_missing_value.close()
+            log_file.close()
+        except Exception as e:
+            message = "*** Exception occurred in the method 'validateMissingValuesInWholeColumn' of class 'Raw_Data_Validation'. \n {v}".format(v=e)
+            self.logger.log(log_col_missing_value, message)
+            self.logger.log(log_file, message)
+            log_file.close()
+            log_col_missing_value.close()
