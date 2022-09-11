@@ -65,7 +65,7 @@ class DBOperation:
         try:
             log_file = open("Training_Log/DBOperation_Log.txt", "a")
             db_connection_log = open("Training_Log/DB_Connection_Log.txt", "a")
-            db_table_log = open("Training_Log/DB_table_Log.txt", "a")
+            db_table_log = open("Training_Log/DB_create_table_Log.txt", "a")
             self.logger.log(log_file, "Entered in to the method 'createTable' of class 'DBOperation'.")
 
             connection = self.createDatabaseConnection(dbname)
@@ -104,7 +104,7 @@ class DBOperation:
         except Exception as e:
             message = "*** Exception occurred in the method 'createTable' of class 'DBOperation'.:  "+str(e)
             log_file = open("Training_Log/DBOperation_Log.txt", "a")
-            db_table_log = open("Training_Log/DB_table_Log.txt", "a")
+            db_table_log = open("Training_Log/DB_create_table_Log.txt", "a")
             self.logger.log(log_file, message)
             self.logger.log(db_table_log, message)
             db_table_log.close()
@@ -113,7 +113,7 @@ class DBOperation:
             connection.close()
             log_file = open("Training_Log/DBOperation_Log.txt", "a")
             db_connection_log = open("Training_Log/DB_Connection_Log.txt", "a")
-            db_table_log = open("Training_Log/DB_table_Log.txt", "a")
+            db_table_log = open("Training_Log/DB_create_table_Log.txt", "a")
             self.logger.log(db_connection_log, "database '{v}' connection closed".format(v=dbname))
             self.logger.log(db_table_log, "database '{v}' connection closed".format(v=dbname))
             self.logger.log(log_file, "table '{v1}' database '{v2}' connection closed".format(v1=tablename, v2=dbname))
@@ -132,3 +132,23 @@ class DBOperation:
             self.logger.log(log_file, "Exception in training raw data file imputation: "+str(e))
             log_file.close()
 
+    def insertIntoTable(self, dbname, tablename):
+        try:
+            log_file = open("Training_Log/DBOperation_Log.txt", "a")
+            db_insert_into_table_log = open("Training_Log/DB_insert_into_table_log.txt")
+            self.logger.log(log_file,"Entered into method 'insertIntoTable'")
+            connection = self.createDatabaseConnection(dbname)
+            self.logger.log(db_insert_into_table_log, "connected with database '{v}'".format(v=dbname))
+
+        except Exception as e:
+            db_insert_into_table_log = open("Training_Log/DB_insert_into_table_log.txt")
+            self.logger.log(db_insert_into_table_log,"Exception while connecting with database: '{v1}' error: {v2}".format(v1=dbName, v2=e))
+            db_insert_into_table_log.close()
+        finally:
+            connection.close()
+            db_log = open("Training_Log/DB_Connection_Log.txt", 'a')
+            log_file = open("Training_Log/DBOperation_Log.txt", "a")
+            self.logger.log(db_log, "database: '" + dbname + "' connection closed successfully")
+            self.logger.log(log_file, "database: '" + dbname + "' connection closed successfully")
+            db_log.close()
+            log_file.close()

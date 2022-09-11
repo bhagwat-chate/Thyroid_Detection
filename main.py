@@ -22,5 +22,6 @@ if __name__ == '__main__':
     obj.createDatabaseConnection('test')
     obj.createTable('test', 'thyroid')
     obj.missingValueImpute("Training_Raw_Files_Validated/Good_Raw", "hypothyroid_0211198_0102062112016.csv")
+    obj.insertIntoTable('test', 'thyroid')
 
     print("DONE")
