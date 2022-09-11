@@ -20,6 +20,6 @@ if __name__ == '__main__':
 
     obj = DBOperation()
     obj.createDatabaseConnection('test')
-
+    obj.createTable('test', 'thyroid')
 
     print("DONE")

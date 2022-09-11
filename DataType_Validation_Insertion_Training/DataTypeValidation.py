@@ -1,3 +1,4 @@
+import json
 from os import listdir
 import os
 import csv
@@ -59,3 +60,64 @@ class DBOperation:
             self.logger.log(db_connection_log, message)
             db_connection_log.close()
 
+    def createTable(self, dbname, tablename):
+        self.flage = 0
+        try:
+            log_file = open("Training_Log/DBOperation_Log.txt", "a")
+            db_connection_log = open("Training_Log/DB_Connection_Log.txt", "a")
+            db_table_log = open("Training_Log/DB_table_Log.txt", "a")
+            self.logger.log(log_file, "Entered in to the method 'createTable' of class 'DBOperation'.")
+
+            connection = self.createDatabaseConnection(dbname)
+            self.logger.log(db_table_log, "connected with database '{v}'".format(v=dbname))
+
+            cursor = connection.cursor()
+            query = "SHOW TABLES IN {v}".format(v=dbname)
+            cursor.execute(query)
+
+            table_list = []
+            for i in cursor.fetchall():
+                for j in i:
+                    table_list.append(j)
+
+            if tablename in table_list:
+                self.logger.log(db_table_log, "Table '{v1}' already exist in database '{v2}'".format(v1=tablename, v2=dbname))
+            else:
+                self.logger.log(db_table_log, "Table '{v1}' doesn't exist in database '{v2}'".format(v1=tablename, v2=dbname))
+                with open("schema_training.json", "r") as f:
+                    dic = json.load(f)
+                    f.close()
+                cursor = connection.cursor()
+                self.flage = 0
+                for key in dic["ColName"].keys():
+                    dtype = dic["ColName"][key]
+                    if self.flage == 0:
+                        self.flage = 1
+                        query = "CREATE TABLE " + dbname + "." + tablename + "(" + key + " " + dtype + ")"
+                        cursor.execute(query)
+                    else:
+                        query = "ALTER TABLE "+tablename+" ADD "+str(key)+" "+str(dtype)
+                        cursor.execute(query)
+            if self.flage == 1:
+                self.logger.log(db_table_log, "table '{v1}' in database '{v2}' created successfully".format(v1=tablename, v2=dbname))
+
+        except Exception as e:
+            message = "*** Exception occurred in the method 'createTable' of class 'DBOperation'.:  "+str(e)
+            log_file = open("Training_Log/DBOperation_Log.txt", "a")
+            db_table_log = open("Training_Log/DB_table_Log.txt", "a")
+            self.logger.log(log_file, message)
+            self.logger.log(db_table_log, message)
+            db_table_log.close()
+            log_file.close()
+        finally:
+            connection.close()
+            log_file = open("Training_Log/DBOperation_Log.txt", "a")
+            db_connection_log = open("Training_Log/DB_Connection_Log.txt", "a")
+            db_table_log = open("Training_Log/DB_table_Log.txt", "a")
+            self.logger.log(db_connection_log, "database '{v}' connection closed".format(v=dbname))
+            self.logger.log(db_table_log, "database '{v}' connection closed".format(v=dbname))
+            self.logger.log(log_file, "table '{v1}' database '{v2}' connection closed".format(v1=tablename, v2=dbname))
+            self.logger.log(log_file, "Exited from the method 'createTable' of class 'DBOperation'." + '\n')
+            db_connection_log.close()
+            db_table_log.close()
+            log_file.close()
