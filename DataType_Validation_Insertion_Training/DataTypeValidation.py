@@ -121,3 +121,14 @@ class DBOperation:
             db_connection_log.close()
             db_table_log.close()
             log_file.close()
+
+    def missingValueImpute(self, filepath, file):
+        try:
+            df = pd.read_csv(filepath+"/"+file)
+            df = df.replace("?", "NaN")
+            df.to_csv(filepath+"/"+file, index=False)
+        except Exception as e:
+            log_file = open("Training_Log/DBOperation_Log.txt", "a")
+            self.logger.log(log_file, "Exception in training raw data file imputation: "+str(e))
+            log_file.close()
+
