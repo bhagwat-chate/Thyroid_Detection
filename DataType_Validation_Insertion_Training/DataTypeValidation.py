@@ -135,20 +135,42 @@ class DBOperation:
     def insertIntoTable(self, dbname, tablename):
         try:
             log_file = open("Training_Log/DBOperation_Log.txt", "a")
-            db_insert_into_table_log = open("Training_Log/DB_insert_into_table_log.txt")
-            self.logger.log(log_file,"Entered into method 'insertIntoTable'")
+            db_insert_into_table_log = open("Training_Log/DB_insert_into_table_log.txt", "a")
+            self.logger.log(log_file,"Entered into method 'insertIntoTable' of class 'DBOperation'")
             connection = self.createDatabaseConnection(dbname)
+            cursor = connection.cursor()
             self.logger.log(db_insert_into_table_log, "connected with database '{v}'".format(v=dbname))
+            self.logger.log(log_file, "connected with database '{v}'".format(v=dbname))
 
+            onlyfiles = [f for f in listdir(self.goodFilePath)]
+            for file in onlyfiles:
+                try:
+                    with open(self.goodFilePath+'/'+file, "r") as f:
+                        next(f)
+                        reader = csv.reader(f, delimiter="\n")
+                        for line in enumerate(reader):
+                            for list_ in (line[1]):
+                                try:
+                                    # cursor.execute("INSERT INTO {v1}.{v2} VALUES ({v3})".format(v1=dbname, v2=tablename, v3=(list_)))
+                                    self.logger.log(db_insert_into_table_log,"file: {v1} in table: {v2} load successful.".format(v1=file,v2=tablename))
+                                    # connection.commit()
+                                except Exception as e:
+                                    raise e
+                except Exception as e:
+                    raise e
         except Exception as e:
-            db_insert_into_table_log = open("Training_Log/DB_insert_into_table_log.txt")
-            self.logger.log(db_insert_into_table_log,"Exception while connecting with database: '{v1}' error: {v2}".format(v1=dbName, v2=e))
+            db_insert_into_table_log = open("Training_Log/DB_insert_into_table_log.txt", "a")
+            self.logger.log(db_insert_into_table_log,"Exception while connecting with database: '{v1}' error: {v2}".format(v1=dbname, v2=str(e)))
             db_insert_into_table_log.close()
         finally:
             connection.close()
             db_log = open("Training_Log/DB_Connection_Log.txt", 'a')
             log_file = open("Training_Log/DBOperation_Log.txt", "a")
+            db_insert_into_table_log = open("Training_Log/DB_insert_into_table_log.txt", "a")
             self.logger.log(db_log, "database: '" + dbname + "' connection closed successfully")
             self.logger.log(log_file, "database: '" + dbname + "' connection closed successfully")
+            self.logger.log(log_file, "Exited from the method 'insertIntoTable' of class 'DBOperation'")
+            self.logger.log(db_insert_into_table_log, "data loaded in table: '"+tablename+"' successful")
             db_log.close()
             log_file.close()
+            db_insert_into_table_log.close()
