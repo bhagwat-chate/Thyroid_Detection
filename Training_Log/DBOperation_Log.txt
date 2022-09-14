@@ -1,0 +1,17 @@
+2022-09-14 / 19:23:15		Entered in to the method 'createDatabaseConnection' of class 'DBOperation'.
+2022-09-14 / 19:23:15		Exited from the method 'createDatabaseConnection' of class 'DBOperation'.
+
+2022-09-14 / 19:23:15		Entered in to the method 'createDatabaseConnection' of class 'DBOperation'.
+2022-09-14 / 19:23:15		Exited from the method 'createDatabaseConnection' of class 'DBOperation'.
+
+2022-09-14 / 19:23:15		Entered in to the method 'createTable' of class 'DBOperation'.
+2022-09-14 / 19:23:15		table 'thyroid' database 'test' connection closed
+2022-09-14 / 19:23:15		Exited from the method 'createTable' of class 'DBOperation'.
+
+2022-09-14 / 19:23:15		Entered in to the method 'createDatabaseConnection' of class 'DBOperation'.
+2022-09-14 / 19:23:15		Exited from the method 'createDatabaseConnection' of class 'DBOperation'.
+
+2022-09-14 / 19:23:15		Entered into method 'insertIntoTable' of class 'DBOperation'
+2022-09-14 / 19:23:15		connected with database 'test'
+2022-09-14 / 19:23:15		database: 'test' connection closed successfully
+2022-09-14 / 19:23:15		Exited from the method 'insertIntoTable' of class 'DBOperation'

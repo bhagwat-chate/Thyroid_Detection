@@ -7,16 +7,16 @@ if __name__ == '__main__':
     cl = truncate_file()
     cl.truncate_content()
 
-    # obj = Raw_Data_Validation("Thyroid")
-    #
-    # obj.deleteExistingGoodDataTrainingFolder()
-    # obj.deleteExistingBadDataTrainingFolder()
-    # obj.createDirectoryGoodBadRawData()
-    # obj.valuesFromSchema()
-    # obj.validateColumnLength()
-    # obj.validationFileNameRaw()
-    # obj.validateMissingValuesInWholeColumn()
-    # obj.moveBadFilesToArchiveBad()
+    obj = Raw_Data_Validation("Thyroid")
+
+    obj.deleteExistingGoodDataTrainingFolder()
+    obj.deleteExistingBadDataTrainingFolder()
+    obj.createDirectoryGoodBadRawData()
+    obj.valuesFromSchema()
+    obj.validateColumnLength()
+    obj.validationFileNameRaw()
+    obj.validateMissingValuesInWholeColumn()
+    obj.moveBadFilesToArchiveBad()
 
     obj = DBOperation()
     obj.createDatabaseConnection('test')

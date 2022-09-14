@@ -124,11 +124,14 @@ class DBOperation:
 
     def missingValueImpute(self, filepath, file):
         try:
+            log_file = open("Training_Log/DB_Imputation_Log.txt", "a")
             df = pd.read_csv(filepath+"/"+file)
-            df = df.replace("?", "NaN")
+            df = df.replace("?", 0)
             df.to_csv(filepath+"/"+file, index=False)
+            self.logger.log(log_file, file+" : imputation completed.")
+            log_file.close()
         except Exception as e:
-            log_file = open("Training_Log/DBOperation_Log.txt", "a")
+            log_file = open("Training_Log/DB_Imputation_Log.txt", "a")
             self.logger.log(log_file, "Exception in training raw data file imputation: "+str(e))
             log_file.close()
 
@@ -144,6 +147,7 @@ class DBOperation:
 
             onlyfiles = [f for f in listdir(self.goodFilePath)]
             for file in onlyfiles:
+                self.missingValueImpute(self.goodFilePath, file)
                 try:
                     with open(self.goodFilePath+'/'+file, "r") as f:
                         next(f)
@@ -151,16 +155,17 @@ class DBOperation:
                         for line in enumerate(reader):
                             for list_ in (line[1]):
                                 try:
-                                    # cursor.execute("INSERT INTO {v1}.{v2} VALUES ({v3})".format(v1=dbname, v2=tablename, v3=(list_)))
-                                    self.logger.log(db_insert_into_table_log,"file: {v1} in table: {v2} load successful.".format(v1=file,v2=tablename))
-                                    # connection.commit()
+                                    print(file+'\n'+(list_))
+                                    cursor.execute("INSERT INTO {v1}.{v2} VALUES({v3})".format(v1=dbname, v2=tablename, v3=(list_)))
+                                    self.logger.log(db_insert_into_table_log,"file: {v1} in table: {v2} load successful.".format(v1=file, v2=tablename))
                                 except Exception as e:
                                     raise e
+                        connection.commit()
                 except Exception as e:
                     raise e
         except Exception as e:
             db_insert_into_table_log = open("Training_Log/DB_insert_into_table_log.txt", "a")
-            self.logger.log(db_insert_into_table_log,"Exception while connecting with database: '{v1}' error: {v2}".format(v1=dbname, v2=str(e)))
+            self.logger.log(db_insert_into_table_log,"Exception while loading data into table: Thyroid database: '{v1}' error: {v2}".format(v1=dbname, v2=str(e)))
             db_insert_into_table_log.close()
         finally:
             connection.close()

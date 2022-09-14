@@ -1,0 +1,17 @@
+2022-09-14 / 19:23:15		Connecting with MySQL server
+2022-09-14 / 19:23:15		Connected with MySQL server
+2022-09-14 / 19:23:15		Check database 'test' existence
+2022-09-14 / 19:23:15		Database 'test' exist
+2022-09-14 / 19:23:15		Database test connection created successfully
+2022-09-14 / 19:23:15		Connecting with MySQL server
+2022-09-14 / 19:23:15		Connected with MySQL server
+2022-09-14 / 19:23:15		Check database 'test' existence
+2022-09-14 / 19:23:15		Database 'test' exist
+2022-09-14 / 19:23:15		Database test connection created successfully
+2022-09-14 / 19:23:15		database 'test' connection closed
+2022-09-14 / 19:23:15		Connecting with MySQL server
+2022-09-14 / 19:23:15		Connected with MySQL server
+2022-09-14 / 19:23:15		Check database 'test' existence
+2022-09-14 / 19:23:15		Database 'test' exist
+2022-09-14 / 19:23:15		Database test connection created successfully
+2022-09-14 / 19:23:15		database: 'test' connection closed successfully
