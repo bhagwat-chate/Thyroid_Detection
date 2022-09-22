@@ -136,4 +136,15 @@ class Preprocessor:
             self.logger_object.log(self.file_object,'*** Exception occurred in encode_categorical_values_prediction method of the Preprocessor class. Exception:  ' + str(e))
             self.logger_object.log(self.file_object,'Exited the encode_categorical_values_prediction method of the Preprocessor class')
             raise Exception()
-    
+    def handle_imbalance_dataset(self, X, Y):
+        self.logger_object.log(self.file_object, 'Entered the handle_imbalance_dataset method of the Preprocessor class')
+        try:
+            rdsample = RandomOverSampler()
+            X_tx, Y_tx = rdsample._fit_resample(X, Y)
+            self.logger_object.log(self.file_object, 'Imbalance dataset handle complete')
+            self.logger_object.log(self.file_object, 'Exited the handle_imbalance_dataset method of the Preprocessor class\n')
+            return X_tx, Y_tx
+        except Exception as e:
+            self.logger_object.log(self.file_object, '*** Exception occurred in handle_imbalance_dataset method of the Preprocessor class. Exception:  ' + str(e))
+            self.logger_object.log(self.file_object, 'Exited the handle_imbalance_dataset method of the Preprocessor class')
+            raise Exception()
