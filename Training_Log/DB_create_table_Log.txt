@@ -1,0 +1,3 @@
+2022-09-22 / 07:24:18		connected with database 'test'
+2022-09-22 / 07:24:18		Table 'thyroid' already exist in database 'test'
+2022-09-22 / 07:24:18		database 'test' connection closed

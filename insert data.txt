@@ -1,0 +1,11 @@
+load data local infile
+"E:/ML Projects/Thyroid_Detection/Training_Raw_Files_Validated/Good_Raw/hypothyroid_0211198_0102062111998.csv"
+into table thyroid.thyroid
+fields terminated by ','
+enclosed by '"'
+lines Terminated by '\n'
+ignore 1 rows;
+
+
+File with issue
+hypothyroid_0211198_0102062112007
