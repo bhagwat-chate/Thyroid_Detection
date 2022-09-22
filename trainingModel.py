@@ -26,6 +26,7 @@ if __name__ == "__main__":
         obj.remove_columns(data, col)
         obj.separate_label_feature(data, "Class")
         obj.drop_unnecessary_columns(data, ['age', 'sex'])
-        obj.replaceInvalidValuesWithNull(data)
+        obj.replace_invali_value_with_null(data)
+        obj.is_null_present(data)
 
         print("DONE")
