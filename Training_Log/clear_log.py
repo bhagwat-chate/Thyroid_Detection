@@ -6,7 +6,7 @@ class truncate_file:
         pass
 
     def truncate_content(self):
-
-        for file in glob.glob("Training_Log/*.txt"):
-            with open(file, 'r+') as f:
-                f.truncate(0)
+        for dir in ["Training_Log", "Model_Log"]:
+            for file in glob.glob(dir+"/*.txt"):
+                with open(file, 'r+') as f:
+                    f.truncate(0)

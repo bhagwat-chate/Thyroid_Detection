@@ -2,3 +2,5 @@ envs/*
 Training_Raw_Files_Validated/*
 TrainingArchiveBadData/*
 Lab/*
+Training_Log/*
+Model_Log/*
