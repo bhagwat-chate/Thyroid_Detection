@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2022-09-14 / 19:23:14		invalid column length for the file: hypothyroid_0102062112000.csv, moved to Bad_Raw directory
 2022-09-14 / 19:23:14		invalid column length for the file: hypothyroid_02111.csv, moved to Bad_Raw directory
 2022-09-14 / 19:23:14		invalid column length for the file: hypothyroid_0211198_0102062.csv, moved to Bad_Raw directory
@@ -26,3 +27,33 @@
 2022-09-14 / 19:23:14		invalid column length for the file: hypothyroid_0211198_0102062112109.csv, moved to Bad_Raw directory
 2022-09-14 / 19:23:14		valid column length for the file: wafer_0211198_0102062112001.csv, moved to Good_Raw directory
 2022-09-14 / 19:23:14		valid column length for the file: _0211198_0102062112004.csv, moved to Good_Raw directory
+=======
+2022-09-22 / 07:24:17		invalid column length for the file: hypothyroid_0102062112000.csv, moved to Bad_Raw directory
+2022-09-22 / 07:24:17		invalid column length for the file: hypothyroid_02111.csv, moved to Bad_Raw directory
+2022-09-22 / 07:24:17		invalid column length for the file: hypothyroid_0211198_0102062.csv, moved to Bad_Raw directory
+2022-09-22 / 07:24:17		invalid column length for the file: hypothyroid_0211198_0102062111000.csv, moved to Bad_Raw directory
+2022-09-22 / 07:24:17		valid column length for the file: hypothyroid_0211198_0102062111998.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: hypothyroid_0211198_0102062111999.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: hypothyroid_0211198_0102062112000.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: hypothyroid_0211198_0102062112001.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: hypothyroid_0211198_0102062112002.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: hypothyroid_0211198_0102062112003.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: hypothyroid_0211198_0102062112004.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: hypothyroid_0211198_0102062112005.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: hypothyroid_0211198_0102062112006.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: hypothyroid_0211198_0102062112007.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: hypothyroid_0211198_0102062112008.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: hypothyroid_0211198_0102062112009.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: hypothyroid_0211198_0102062112010.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: hypothyroid_0211198_0102062112011.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: hypothyroid_0211198_0102062112012.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: hypothyroid_0211198_0102062112013.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: hypothyroid_0211198_0102062112014.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: hypothyroid_0211198_0102062112015.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: hypothyroid_0211198_0102062112016.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		invalid column length for the file: hypothyroid_0211198_0102062112025.csv, moved to Bad_Raw directory
+2022-09-22 / 07:24:18		invalid column length for the file: hypothyroid_0211198_0102062112042.csv, moved to Bad_Raw directory
+2022-09-22 / 07:24:18		invalid column length for the file: hypothyroid_0211198_0102062112109.csv, moved to Bad_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: wafer_0211198_0102062112001.csv, moved to Good_Raw directory
+2022-09-22 / 07:24:18		valid column length for the file: _0211198_0102062112004.csv, moved to Good_Raw directory
+>>>>>>> 68b860c3ea61909f0c052e7714e6c04416d1be5a

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2022-09-14 / 19:23:14		no column with 100% missing values in file: hypothyroid_0211198_0102062111998.csv
 2022-09-14 / 19:23:14		no column with 100% missing values in file: hypothyroid_0211198_0102062111999.csv
 2022-09-14 / 19:23:14		no column with 100% missing values in file: hypothyroid_0211198_0102062112000.csv
@@ -17,3 +18,24 @@
 2022-09-14 / 19:23:15		no column with 100% missing values in file: hypothyroid_0211198_0102062112014.csv
 2022-09-14 / 19:23:15		no column with 100% missing values in file: hypothyroid_0211198_0102062112015.csv
 2022-09-14 / 19:23:15		no column with 100% missing values in file: hypothyroid_0211198_0102062112016.csv
+=======
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062111998.csv
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062111999.csv
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062112000.csv
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062112001.csv
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062112002.csv
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062112003.csv
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062112004.csv
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062112005.csv
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062112006.csv
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062112007.csv
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062112008.csv
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062112009.csv
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062112010.csv
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062112011.csv
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062112012.csv
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062112013.csv
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062112014.csv
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062112015.csv
+2022-09-22 / 07:24:18		no column with 100% missing values in file: hypothyroid_0211198_0102062112016.csv
+>>>>>>> 68b860c3ea61909f0c052e7714e6c04416d1be5a

@@ -4,7 +4,11 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/envs" />
     </content>
+<<<<<<< HEAD
     <orderEntry type="jdk" jdkName="Python 3.7 (Thyroid) (2)" jdkType="Python SDK" />
+=======
+    <orderEntry type="jdk" jdkName="Python 3.7 (Thyroid)" jdkType="Python SDK" />
+>>>>>>> 68b860c3ea61909f0c052e7714e6c04416d1be5a
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
