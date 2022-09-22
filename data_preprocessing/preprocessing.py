@@ -113,4 +113,27 @@ class Preprocessor:
         except Exception as e:
             self.logger_object.log(self.file_object,'*** Exception occurred in encode_categorical_values method of the Preprocessor class. Exception:  ' + str(e))
             self.logger_object.log(self.file_object, 'Exited the encode_categorical_values method of the Preprocessor class')
-            # raise Exception()
+            raise Exception()
+
+    def encode_categorical_values_prediction(self, data):
+        self.logger_object.log(self.file_object, 'Entered the encode_categorical_values_prediction method of the Preprocessor class')
+        try:
+            data['sex'] = data['sex'].map({'F':0, 'M':1})
+            cat_data = data.drop(['age','T3','TT4','T4U','FTI','sex'],axis=1)
+            for column in cat_data.column:
+                if data[column].nunique() == 1:
+                    if data[column].unique()[0] == 'f' or data[column].unique()[0] == 'F':
+                        data[column] = data[column].map({data[column].unique()[0] : 0})
+                    else:
+                        data[column] = data[column].map({data[column].unique()[0]: 1})
+                elif data[column].unique() == 2:
+                    data[column] = data[column].map({'f':0, 't':1})
+            data = pd.get_dummies(data, columns=['referral_source'])
+            self.logger_object.log(self.file_object, 'Categorical feature encoding complete')
+            self.logger_object.log(self.file_object,'Exited the encode_categorical_values_prediction method of the Preprocessor class\n')
+            return data
+        except Exception as e:
+            self.logger_object.log(self.file_object,'*** Exception occurred in encode_categorical_values_prediction method of the Preprocessor class. Exception:  ' + str(e))
+            self.logger_object.log(self.file_object,'Exited the encode_categorical_values_prediction method of the Preprocessor class')
+            raise Exception()
+    
