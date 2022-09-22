@@ -88,7 +88,29 @@ class Preprocessor:
                 df_with_null.to_csv("data_preprocessing/null_values.csv", index=False)
                 self.logger_object.log(self.file_object, 'NULL value check complete')
                 self.logger_object.log(self.file_object, 'Exited the is_null_present method of the Preprocessor class\n')
+                return self.null_present
         except Exception as e:
             self.logger_object.log(self.file_object,'*** Exception occurred in is_null_present method of the Preprocessor class. Exception:  ' + str(e))
             self.logger_object.log(self.file_object,'Exited the is_null_present method of the Preprocessor class')
             raise Exception()
+
+    def encode_categorical_values(self, data):
+        self.logger_object.log(self.file_object, 'Entered the encode_categorical_values method of the Preprocessor class')
+        try:
+            data['sex'] = data['sex'].map({'F':0, 'M':1})
+            for column in data.columns:
+                if len(data[column].unique()) == 2:
+                    data[column] = data[column].map({'f':0, 't':1})
+            data = pd.get_dummies(data, columns=['referral_source'])
+            encode = LabelEncoder().fit(data['Class'])
+            data['Class'] = encode.transform(data['Class'])
+
+            with open('EncoderPickle/enc.pickle', 'wb') as file:
+                pickle.dump(encode, file)
+            self.logger_object.log(self.file_object, 'Categorical feature encoding complete')
+            self.logger_object.log(self.file_object, 'Exited the encode_categorical_values method of the Preprocessor class\n')
+            return data
+        except Exception as e:
+            self.logger_object.log(self.file_object,'*** Exception occurred in encode_categorical_values method of the Preprocessor class. Exception:  ' + str(e))
+            self.logger_object.log(self.file_object, 'Exited the encode_categorical_values method of the Preprocessor class')
+            # raise Exception()

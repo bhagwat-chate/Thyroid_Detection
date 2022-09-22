@@ -28,5 +28,6 @@ if __name__ == "__main__":
         obj.drop_unnecessary_columns(data, ['age', 'sex'])
         obj.replace_invali_value_with_null(data)
         obj.is_null_present(data)
+        obj.encode_categorical_values(data)
 
         print("DONE")
