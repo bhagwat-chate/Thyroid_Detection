@@ -148,23 +148,6 @@ class DBOperation:
             onlyfiles = [f for f in listdir(self.goodFilePath)]
             for file in onlyfiles:
                 self.missingValueImpute(self.goodFilePath, file)
-<<<<<<< HEAD
-                try:
-                    with open(self.goodFilePath+'/'+file, "r") as f:
-                        next(f)
-                        reader = csv.reader(f, delimiter="\n")
-                        for line in enumerate(reader):
-                            for list_ in (line[1]):
-                                try:
-                                    print(file+'\n'+(list_))
-                                    cursor.execute("INSERT INTO {v1}.{v2} VALUES({v3})".format(v1=dbname, v2=tablename, v3=(list_)))
-                                    self.logger.log(db_insert_into_table_log,"file: {v1} in table: {v2} load successful.".format(v1=file, v2=tablename))
-                                except Exception as e:
-                                    raise e
-                        connection.commit()
-                except Exception as e:
-                    raise e
-=======
                 self.logger.log(db_insert_into_table_log,"file: {v1} in table: {v2} load successful.".format(v1=file, v2=tablename))
 
                 # try:
@@ -182,7 +165,6 @@ class DBOperation:
                 #         connection.commit()
                 # except Exception as e:
                 #     raise e
->>>>>>> 68b860c3ea61909f0c052e7714e6c04416d1be5a
         except Exception as e:
             db_insert_into_table_log = open("Training_Log/DB_insert_into_table_log.txt", "a")
             self.logger.log(db_insert_into_table_log,"Exception while loading data into table: Thyroid database: '{v1}' error: {v2}".format(v1=dbname, v2=str(e)))
@@ -199,8 +181,6 @@ class DBOperation:
             db_log.close()
             log_file.close()
             db_insert_into_table_log.close()
-<<<<<<< HEAD
-=======
 
     def exportDataForTraining(self, dbName):
         self.fileFromDB = "Training_FileFromDB/"
@@ -226,4 +206,3 @@ class DBOperation:
         except Exception as e:
             self.logger.log(log_file, "training data export failed, error: %s" %e)
             log_file.close()
->>>>>>> 68b860c3ea61909f0c052e7714e6c04416d1be5a

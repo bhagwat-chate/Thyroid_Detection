@@ -1,27 +1,21 @@
-<<<<<<< HEAD
-2022-09-14 / 19:23:15		connected with database 'test'
-2022-09-14 / 19:23:15		Exception while loading data into table: Thyroid database: 'test' error: 1054 (42S22): Unknown column 'F' in 'field list'
-2022-09-14 / 19:23:15		data loaded in table: 'thyroid' successful
-=======
-2022-09-22 / 07:24:19		connected with database 'test'
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062111998.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062111999.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062112000.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062112001.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062112002.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062112003.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062112004.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062112005.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062112006.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062112007.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062112008.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062112009.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062112010.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062112011.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062112012.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062112013.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062112014.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062112015.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		file: hypothyroid_0211198_0102062112016.csv in table: thyroid load successful.
-2022-09-22 / 07:24:19		data loaded in table: 'thyroid' successful
->>>>>>> 68b860c3ea61909f0c052e7714e6c04416d1be5a
+2022-09-22 / 10:36:20		connected with database 'test'
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062111998.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062111999.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062112000.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062112001.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062112002.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062112003.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062112004.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062112005.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062112006.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062112007.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062112008.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062112009.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062112010.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062112011.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062112012.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062112013.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062112014.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062112015.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		file: hypothyroid_0211198_0102062112016.csv in table: Thyroid load successful.
+2022-09-22 / 10:36:20		data loaded in table: 'Thyroid' successful

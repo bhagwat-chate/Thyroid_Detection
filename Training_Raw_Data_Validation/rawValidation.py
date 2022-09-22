@@ -19,6 +19,7 @@ class Raw_Data_Validation:
         self.LengthOfDateStampInFile = 0
         self.LengthOfTimeStampInFile = 0
         self.NumberOfColumns = 0
+        self.ColName = ""
         self.batch_directory = path
         self.schema_path = 'schema_training.json'
         self.logger = App_logger()
@@ -42,7 +43,7 @@ class Raw_Data_Validation:
                 self.LengthOfDateStampInFile = dic["LengthOfDateStampInFile"]
                 self.LengthOfTimeStampInFile = dic["LengthOfTimeStampInFile"]
                 self.NumberOfColumns = dic["NumberOfColumns"]
-
+                self.ColName = list(dic["ColName"].keys())
                 message = "Length Of Date Stamp In File:: %s" %self.LengthOfDateStampInFile + "\t" + "Length Of Time Stamp In File:: %s" %self.LengthOfTimeStampInFile+"\t"+"Number Of Columns:: %s" %self.NumberOfColumns
                 file_object = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")
                 self.logger.log(file_object, message)
@@ -52,6 +53,7 @@ class Raw_Data_Validation:
                 self.logger.log(file_object, message+'\n')
                 file_object.close()
 
+                return self.LengthOfDateStampInFile, self.LengthOfTimeStampInFile, self.ColName, self.NumberOfColumns
         except Exception as e:
             message = "*** Exception occurred in the method 'valuesFromSchema' of class 'Raw_Data_Validation'. \n {v}".format(v=e)
             file_object = open("Training_Log/Training_Raw_File_Validation_Log.txt", "a")

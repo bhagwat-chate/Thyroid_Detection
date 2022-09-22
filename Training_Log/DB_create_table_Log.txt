@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-2022-09-14 / 19:23:15		connected with database 'test'
-2022-09-14 / 19:23:15		Table 'thyroid' already exist in database 'test'
-2022-09-14 / 19:23:15		database 'test' connection closed
-=======
-2022-09-22 / 07:24:18		connected with database 'test'
-2022-09-22 / 07:24:18		Table 'thyroid' already exist in database 'test'
-2022-09-22 / 07:24:18		database 'test' connection closed
->>>>>>> 68b860c3ea61909f0c052e7714e6c04416d1be5a
+2022-09-22 / 10:36:19		connected with database 'test'
+2022-09-22 / 10:36:19		Table 'Thyroid' doesn't exist in database 'test'
+2022-09-22 / 10:36:19		*** Exception occurred in the method 'createTable' of class 'DBOperation'.:  1050 (42S01): Table 'thyroid' already exists
+2022-09-22 / 10:36:19		database 'test' connection closed
