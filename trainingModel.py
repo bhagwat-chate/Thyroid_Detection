@@ -6,6 +6,7 @@ from data_preprocessing.preprocessing import Preprocessor
 # from file_operations import file_methods
 from application_logging.logger import App_logger
 import pandas as pd
+import numpy as np
 from Training_Log.clear_log import truncate_file
 
 
@@ -31,10 +32,12 @@ if __name__ == "__main__":
         data = obj.replace_invalid_value_with_null(data)
         obj.is_null_present(data)
         data = obj.encode_categorical_values(data)
-        data.to_csv("test/data.csv", index=False)
+        data = data.reset_index().drop('index', axis=1)
         data = obj.impute_missing_value(data)
-        # data = obj.drop_unnecessary_columns(data, ['age', 'sex'])
-        # data = obj.drop_unnecessary_columns(data, [])
-        # X, Y = obj.separate_label_feature(data, "Class")
+
+        data.to_csv("test/data.csv", index=False)
+        data = obj.drop_unnecessary_columns(data, ['sex'])
+
+        X, Y = obj.separate_label_feature(data, "Class")
 
         print("success")

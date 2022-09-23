@@ -48,9 +48,14 @@ class Preprocessor:
     def drop_unnecessary_columns(self, data, columnNameList):
         self.logger_object.log(self.file_object, 'Entered the drop_unnecessary_columns method of the Preprocessor class')
         try:
-            data = data.drop(columnNameList, axis=1)
-            self.logger_object.log(self.file_object, 'Unnecessary columns deleted')
-            self.logger_object.log(self.file_object, 'Exited the drop_unnecessary_columns method of the Preprocessor class\n')
+            if len(columnNameList) != 0:
+                data = data.drop(columnNameList, axis=1)
+                self.logger_object.log(self.file_object, 'Unnecessary columns deleted')
+                self.logger_object.log(self.file_object, 'Exited the drop_unnecessary_columns method of the Preprocessor class\n')
+
+            else:
+                self.logger_object.log(self.file_object, 'Do not have columns for delete')
+                self.logger_object.log(self.file_object, 'Exited the drop_unnecessary_columns method of the Preprocessor class\n')
             return data
         except Exception as e:
             self.logger_object.log(self.file_object, '*** Exception occurred in drop_unnecessary_columns method of the Preprocessor class. Exception:  '+str(e))
@@ -65,7 +70,6 @@ class Preprocessor:
                     data[column] = data[column].replace('?', np.nan)
             self.logger_object.log(self.file_object, 'Invalid values replaced with np.nan')
             self.logger_object.log(self.file_object, 'Exited the replace_invali_value_with_null method of the Preprocessor class\n')
-            # data.to_csv("test/data.csv", index=False)
             return data
         except Exception as e:
             self.logger_object.log(self.file_object, '*** Exception occurred in replace_invali_value_with_null method of the Preprocessor class. Exception:  '+str(e))
@@ -108,7 +112,6 @@ class Preprocessor:
                 pickle.dump(encode, file)
             self.logger_object.log(self.file_object, 'Categorical feature encoding complete')
             self.logger_object.log(self.file_object, 'Exited the encode_categorical_values method of the Preprocessor class\n')
-            self.data.to_csv("test/data.csv", index=False)
             return self.data
         except Exception as e:
             self.logger_object.log(self.file_object,'*** Exception occurred in encode_categorical_values method of the Preprocessor class. Exception:  ' + str(e))
@@ -131,7 +134,6 @@ class Preprocessor:
             self.data = pd.get_dummies(self.data, columns=['referral_source'])
             self.logger_object.log(self.file_object, 'Categorical feature encoding complete')
             self.logger_object.log(self.file_object,'Exited the encode_categorical_values_prediction method of the Preprocessor class\n')
-            self.data.to_csv("data.csv", index=False)
             return self.data
         except Exception as e:
             self.logger_object.log(self.file_object,'*** Exception occurred in encode_categorical_values_prediction method of the Preprocessor class. Exception:  ' + str(e))
@@ -171,7 +173,7 @@ class Preprocessor:
         try:
             imputer = KNNImputer(n_neighbors=3, weights='uniform', missing_values=np.nan)
             self.new_array = imputer.fit_transform(self.data)
-            self.new_data = pd.DataFrame(data=np.round(self.new_array), columns=self.data.columns)
+            self.new_data = pd.DataFrame(data=self.new_array, columns=self.data.columns[1:])
             self.logger_object.log(self.file_object, 'Impute data complete')
             self.logger_object.log(self.file_object, 'Exited the impute_missing_value method of the Preprocessor class\n')
             return self.new_data
