@@ -34,10 +34,9 @@ if __name__ == "__main__":
         data = obj.encode_categorical_values(data)
         data = data.reset_index().drop('index', axis=1)
         data = obj.impute_missing_value(data)
-
-        data.to_csv("test/data.csv", index=False)
-        data = obj.drop_unnecessary_columns(data, ['sex'])
-
+        
+        col_to_delete = get_columns_with_zero_std_deviation(data)
+        data = obj.drop_unnecessary_columns(data, col_to_delete)
         X, Y = obj.separate_label_feature(data, "Class")
 
         print("success")
