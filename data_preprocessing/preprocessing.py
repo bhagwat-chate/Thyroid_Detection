@@ -36,7 +36,7 @@ class Preprocessor:
     def separate_label_feature(self, data, label_column_name):
         self.logger_object.log(self.file_object, 'Entered the separate_label_feature method of the Preprocessor class')
         try:
-            self.X = data.drop(labels = label_column_name, axis = 1)
+            self.X = data.drop(labels=label_column_name, axis=1)
             self.Y = data[label_column_name]
             self.logger_object.log(self.file_object, 'data and label separation done')
             self.logger_object.log(self.file_object, 'Exited the separate_label_feature method of the Preprocessor class\n')
@@ -44,7 +44,6 @@ class Preprocessor:
         except Exception as e:
             self.logger_object.log(self.file_object,'*** Exception occurred in separate_label_feature method of the Preprocessor class. Exception message:  '+str(e))
             self.logger_object.log(self.file_object,'Label Separation Unsuccessful. Exited the separate_label_feature method of the Preprocessor class')
-            raise Exception()
 
     def drop_unnecessary_columns(self, data, columnNameList):
         self.logger_object.log(self.file_object, 'Entered the drop_unnecessary_columns method of the Preprocessor class')
@@ -56,9 +55,8 @@ class Preprocessor:
         except Exception as e:
             self.logger_object.log(self.file_object, '*** Exception occurred in drop_unnecessary_columns method of the Preprocessor class. Exception:  '+str(e))
             self.logger_object.log(self.file_object, 'Exited the drop_unnecessary_columns method of the Preprocessor class')
-            raise Exception()
 
-    def replace_invali_value_with_null(self, data):
+    def replace_invalid_value_with_null(self, data):
         self.logger_object.log(self.file_object, 'Entered the replace_invali_value_with_null method of the Preprocessor class')
         try:
             for column in data.columns:
@@ -67,11 +65,11 @@ class Preprocessor:
                     data[column] = data[column].replace('?', np.nan)
             self.logger_object.log(self.file_object, 'Invalid values replaced with np.nan')
             self.logger_object.log(self.file_object, 'Exited the replace_invali_value_with_null method of the Preprocessor class\n')
+            # data.to_csv("test/data.csv", index=False)
             return data
         except Exception as e:
             self.logger_object.log(self.file_object, '*** Exception occurred in replace_invali_value_with_null method of the Preprocessor class. Exception:  '+str(e))
             self.logger_object.log(self.file_object, 'Exited the replace_invali_value_with_null method of the Preprocessor class')
-            raise Exception()
 
     def is_null_present(self, data):
         self.logger_object.log(self.file_object, 'Entered the is_null_present method of the Preprocessor class')
@@ -88,54 +86,57 @@ class Preprocessor:
                 df_with_null.to_csv("data_preprocessing/null_values.csv", index=False)
                 self.logger_object.log(self.file_object, 'NULL value check complete')
                 self.logger_object.log(self.file_object, 'Exited the is_null_present method of the Preprocessor class\n')
-                return self.null_present
+                # return self.null_present
         except Exception as e:
             self.logger_object.log(self.file_object,'*** Exception occurred in is_null_present method of the Preprocessor class. Exception:  ' + str(e))
             self.logger_object.log(self.file_object,'Exited the is_null_present method of the Preprocessor class')
-            raise Exception()
 
     def encode_categorical_values(self, data):
         self.logger_object.log(self.file_object, 'Entered the encode_categorical_values method of the Preprocessor class')
+        self.data = data
         try:
-            data['sex'] = data['sex'].map({'F':0, 'M':1})
-            for column in data.columns:
-                if len(data[column].unique()) == 2:
-                    data[column] = data[column].map({'f':0, 't':1})
-            data = pd.get_dummies(data, columns=['referral_source'])
-            encode = LabelEncoder().fit(data['Class'])
-            data['Class'] = encode.transform(data['Class'])
+            self.data['sex'] = self.data['sex'].map({'F': 0, 'M': 1})
+            for column in self.data.columns:
+                if len(self.data[column].unique()) == 2:
+                    self.data[column] = self.data[column].map({'f': 0, 't': 1})
+            self.data = pd.get_dummies(self.data, columns=['referral_source'])
+            encode = LabelEncoder().fit(self.data['Class'])
+            self.data['Class'] = encode.transform(self.data['Class'])
+            self.data['TBG_measured'] = self.data['TBG_measured'].map({'f': 0, 't': 1})
 
             with open('EncoderPickle/enc.pickle', 'wb') as file:
                 pickle.dump(encode, file)
             self.logger_object.log(self.file_object, 'Categorical feature encoding complete')
             self.logger_object.log(self.file_object, 'Exited the encode_categorical_values method of the Preprocessor class\n')
-            return data
+            self.data.to_csv("test/data.csv", index=False)
+            return self.data
         except Exception as e:
             self.logger_object.log(self.file_object,'*** Exception occurred in encode_categorical_values method of the Preprocessor class. Exception:  ' + str(e))
             self.logger_object.log(self.file_object, 'Exited the encode_categorical_values method of the Preprocessor class')
-            raise Exception()
 
     def encode_categorical_values_prediction(self, data):
         self.logger_object.log(self.file_object, 'Entered the encode_categorical_values_prediction method of the Preprocessor class')
+        self.data = data
         try:
-            data['sex'] = data['sex'].map({'F':0, 'M':1})
-            cat_data = data.drop(['age','T3','TT4','T4U','FTI','sex'],axis=1)
+            self.data['sex'] = self.data['sex'].map({'F':0, 'M':1})
+            cat_data = self.data.drop(['age','T3','TT4','T4U','FTI','sex'],axis=1)
             for column in cat_data.column:
-                if data[column].nunique() == 1:
-                    if data[column].unique()[0] == 'f' or data[column].unique()[0] == 'F':
-                        data[column] = data[column].map({data[column].unique()[0] : 0})
+                if self.data[column].nunique() == 1:
+                    if self.data[column].unique()[0] == 'f' or self.data[column].unique()[0] == 'F':
+                        self.data[column] = self.data[column].map({self.data[column].unique()[0]: 0})
                     else:
-                        data[column] = data[column].map({data[column].unique()[0]: 1})
-                elif data[column].unique() == 2:
-                    data[column] = data[column].map({'f':0, 't':1})
-            data = pd.get_dummies(data, columns=['referral_source'])
+                        self.data[column] = self.data[column].map({self.data[column].unique()[0]: 1})
+                elif self.data[column].unique() == 2:
+                    self.data[column] = self.data[column].map({'f': 0, 't': 1})
+            self.data = pd.get_dummies(self.data, columns=['referral_source'])
             self.logger_object.log(self.file_object, 'Categorical feature encoding complete')
             self.logger_object.log(self.file_object,'Exited the encode_categorical_values_prediction method of the Preprocessor class\n')
-            return data
+            self.data.to_csv("data.csv", index=False)
+            return self.data
         except Exception as e:
             self.logger_object.log(self.file_object,'*** Exception occurred in encode_categorical_values_prediction method of the Preprocessor class. Exception:  ' + str(e))
             self.logger_object.log(self.file_object,'Exited the encode_categorical_values_prediction method of the Preprocessor class')
-            raise Exception()
+
     def handle_imbalance_dataset(self, data, imb_threshold_percentage):
         self.logger_object.log(self.file_object, 'Entered the handle_imbalance_dataset method of the Preprocessor class')
         self.data = data
@@ -163,4 +164,18 @@ class Preprocessor:
         except Exception as e:
             self.logger_object.log(self.file_object, '*** Exception occurred in handle_imbalance_dataset method of the Preprocessor class. Exception:  ' + str(e))
             self.logger_object.log(self.file_object, 'Exited the handle_imbalance_dataset method of the Preprocessor class')
-            # raise Exception()
+
+    def impute_missing_value(self, data):
+        self.logger_object.log(self.file_object, "Entered into impute_missing_value method of Preprocessor class")
+        self.data = data
+        try:
+            imputer = KNNImputer(n_neighbors=3, weights='uniform', missing_values=np.nan)
+            self.new_array = imputer.fit_transform(self.data)
+            self.new_data = pd.DataFrame(data=np.round(self.new_array), columns=self.data.columns)
+            self.logger_object.log(self.file_object, 'Impute data complete')
+            self.logger_object.log(self.file_object, 'Exited the impute_missing_value method of the Preprocessor class\n')
+            return self.new_data
+        except Exception as e:
+            self.logger_object.log(self.file_object, '*** Exception occurred in impute_missing_value method of the Preprocessor class. Exception:  ' + str(e))
+            self.logger_object.log(self.file_object, 'Exited the impute_missing_value method of the Preprocessor class')
+

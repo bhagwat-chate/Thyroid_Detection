@@ -28,10 +28,13 @@ if __name__ == "__main__":
         imb_threshold_percentage = 28
         data = obj.handle_imbalance_dataset(data, imb_threshold_percentage)
 
-        X, Y = obj.separate_label_feature(data, "Class")
-        obj.drop_unnecessary_columns(data, ['age', 'sex'])
-        obj.replace_invali_value_with_null(data)
+        data = obj.replace_invalid_value_with_null(data)
         obj.is_null_present(data)
-        obj.encode_categorical_values(data)
-        
-        print("DONE")
+        data = obj.encode_categorical_values(data)
+        data.to_csv("test/data.csv", index=False)
+        data = obj.impute_missing_value(data)
+        # data = obj.drop_unnecessary_columns(data, ['age', 'sex'])
+        # data = obj.drop_unnecessary_columns(data, [])
+        # X, Y = obj.separate_label_feature(data, "Class")
+
+        print("success")
