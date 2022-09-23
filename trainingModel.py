@@ -24,11 +24,14 @@ if __name__ == "__main__":
         obj = Preprocessor(file_object, log_object)
         data = pd.read_csv("Training_FileFromDB/InputFile.csv")
         obj.remove_columns(data, col)
+
+        imb_threshold_percentage = 28
+        data = obj.handle_imbalance_dataset(data, imb_threshold_percentage)
+
         X, Y = obj.separate_label_feature(data, "Class")
         obj.drop_unnecessary_columns(data, ['age', 'sex'])
         obj.replace_invali_value_with_null(data)
         obj.is_null_present(data)
         obj.encode_categorical_values(data)
-        X, Y = obj.handle_imbalance_dataset(X, Y)
         
         print("DONE")

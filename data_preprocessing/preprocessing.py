@@ -3,7 +3,7 @@ import numpy as np
 import pickle
 from sklearn.preprocessing import LabelEncoder
 from sklearn.impute import KNNImputer
-from imblearn.over_sampling import RandomOverSampler
+from sklearn.utils import resample
 
 class Preprocessor:
     """
@@ -136,15 +136,31 @@ class Preprocessor:
             self.logger_object.log(self.file_object,'*** Exception occurred in encode_categorical_values_prediction method of the Preprocessor class. Exception:  ' + str(e))
             self.logger_object.log(self.file_object,'Exited the encode_categorical_values_prediction method of the Preprocessor class')
             raise Exception()
-    def handle_imbalance_dataset(self, X, Y):
+    def handle_imbalance_dataset(self, data, imb_threshold_percentage):
         self.logger_object.log(self.file_object, 'Entered the handle_imbalance_dataset method of the Preprocessor class')
+        self.data = data
+        self.imb_threshold_percentage = imb_threshold_percentage
         try:
-            rdsample = RandomOverSampler()
-            X_tx, Y_tx = rdsample._fit_resample(X, Y)
-            self.logger_object.log(self.file_object, 'Imbalance dataset handle complete')
+            data_negative = self.data[self.data['Class'] == "negative"]
+            data_compensated_hypothyroid = self.data[self.data['Class'] == "compensated_hypothyroid"]
+            data_primary_hypothyroid = self.data[self.data['Class'] == "primary_hypothyroid"]
+            class_record_len = [len(data_negative), len(data_compensated_hypothyroid), len(data_primary_hypothyroid)]
+
+            data_negative_per = len(data_negative)/len(data)*100
+            data_compensated_hypothyroid_per = len(data_compensated_hypothyroid)/len(data)*100
+            data_primary_hypothyroid_per = len(data_primary_hypothyroid)/len(data)*100
+            class_record_per = [data_negative_per, data_compensated_hypothyroid_per, data_primary_hypothyroid_per]
+
+            if any(class_label < self.imb_threshold_percentage for class_label in class_record_per):
+                self.logger_object.log(self.file_object, 'Need to perform data balance operation')
+                data_compensated_hypothyroid_up = resample(data_compensated_hypothyroid, replace=True, n_samples=max(class_record_len)-len(data_compensated_hypothyroid), random_state=1234)
+                data_primary_hypothyroid_up = resample(data_primary_hypothyroid, replace=True, n_samples=max(class_record_len)-len(data_primary_hypothyroid), random_state=1234)
+                self.data = pd.concat([data_negative, data_compensated_hypothyroid_up, data_primary_hypothyroid_up])
+            else:
+                self.logger_object.log(self.file_object, 'No need to perform data balance operation')
             self.logger_object.log(self.file_object, 'Exited the handle_imbalance_dataset method of the Preprocessor class\n')
-            return X_tx, Y_tx
+            return self.data
         except Exception as e:
             self.logger_object.log(self.file_object, '*** Exception occurred in handle_imbalance_dataset method of the Preprocessor class. Exception:  ' + str(e))
             self.logger_object.log(self.file_object, 'Exited the handle_imbalance_dataset method of the Preprocessor class')
-            raise Exception()
+            # raise Exception()
