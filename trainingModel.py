@@ -1,9 +1,9 @@
 from sklearn.model_selection import train_test_split
 from data_ingestion import data_loader
 from data_preprocessing.preprocessing import Preprocessor
-# from data_preprocessing import clustering
-# from best_model_finder import tuner
-# from file_operations import file_methods
+from data_preprocessing import clustering
+from best_model_finder import tuner
+from file_operations import file_methods
 from application_logging.logger import App_logger
 import pandas as pd
 import numpy as np
