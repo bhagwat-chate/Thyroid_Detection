@@ -68,3 +68,37 @@ class Model_Finder:
         except Exception as e:
             self.logger_object.log(self.file_object,'*** Exception occurred in get_best_params_for_knn method of the Model_Finder class. Exception:  ' + str(e))
             self.logger_object.log(self.file_object, 'Exited the get_best_params_for_knn method of the Model_Finder class')
+
+    def get_best_model(self, train_x, train_y, test_x, test_y):
+        self.logger_object.log(self.file_object, 'Entered the get_best_model method of the Model_Finder class')
+        try:
+            self.knn = self.get_best_params_for_knn(train_x, train_y)
+            self.prediction_knn = self.knn.predict_proba(test_x)
+
+            if len(test_y.unique()) == 1:
+                self.knn_score = accuracy_score(test_y, self.prediction_knn)
+                self.logger_object.log(self.file_object, "Accuracy for knn: " + str(self.knn_score))
+            else:
+                self.knn_score = roc_auc_score(test_y, self.prediction_knn, multi_class='ovr')
+                self.logger_object.log(self.file_object, "AUC for knn: " + str(self.knn_score))
+
+            self.random_forest = self.get_best_params_for_random_forest(train_x, train_y)
+            self.prediction_random_forest = self.random_forest.predict_proba(test_x)
+
+            if len(test_y.unique()) == 1:
+                self.random_forest_score = accuracy_score((test_y), self.prediction_random_forest)
+                self.logger_object.log(self.file_object, "AUC for Random Forest: " + str(self.random_forest_score))
+            else:
+                self.random_forest_score = roc_auc_score((test_y), self.prediction_random_forest, multi_class='ovr')
+                self.logger_object.log(self.file_object, "AUC for Random Forest: " + str(self.random_forest_score))
+
+            if self.random_forest_score < self.knn_score:
+                return 'KNN', self.knn
+            else:
+                return 'RandomForest', self.random_forest
+
+            self.logger_object.log(self.file_object, "Best model returned")
+            self.logger_object.log(self.file_object, "Exited the get_best_model method of the Model_Finder class")
+        except Exception as e:
+            self.logger_object.log(self.file_object, '*** Exception occurred in get_best_model method of the Model_Finder class. Exception: ' + str(e))
+            self.logger_object.log(self.file_object, 'Exited the get_best_model method of the Model_Finder class')
