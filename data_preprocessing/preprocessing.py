@@ -112,6 +112,7 @@ class Preprocessor:
                 pickle.dump(encode, file)
             self.logger_object.log(self.file_object, 'Categorical feature encoding complete')
             self.logger_object.log(self.file_object, 'Exited the encode_categorical_values method of the Preprocessor class\n')
+            self.data = self.data.reset_index().drop('index', axis=1)
             return self.data
         except Exception as e:
             self.logger_object.log(self.file_object,'*** Exception occurred in encode_categorical_values method of the Preprocessor class. Exception:  ' + str(e))
@@ -192,6 +193,8 @@ class Preprocessor:
                 if (self.data_n[col]['std'] == 0):
                     self.col_to_drop.append(col)
             self.logger_object.log(self.file_object, "search of columns with zero standard deviation complete")
+            self.logger_object.log(self.file_object, "Exit from get_columns_with_zero_std_deviation method of Preprocessor class\n")
+
             return self.col_to_drop
         except Exception as e:
             self.logger_object.log(self.file_object,'*** Exception occurred in get_columns_with_zero_std_deviation method of the Preprocessor class. Exception:  ' + str(e))

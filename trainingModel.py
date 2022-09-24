@@ -31,11 +31,10 @@ if __name__ == "__main__":
 
         data = obj.replace_invalid_value_with_null(data)
         obj.is_null_present(data)
+
         data = obj.encode_categorical_values(data)
-        data = data.reset_index().drop('index', axis=1)
         data = obj.impute_missing_value(data)
-        
-        col_to_delete = get_columns_with_zero_std_deviation(data)
+        col_to_delete = obj.get_columns_with_zero_std_deviation(data)
         data = obj.drop_unnecessary_columns(data, col_to_delete)
         X, Y = obj.separate_label_feature(data, "Class")
 
