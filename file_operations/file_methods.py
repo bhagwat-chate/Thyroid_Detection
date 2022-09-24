@@ -45,15 +45,28 @@ class File_Operation:
             self.logger_object.log(self.file_object,'*** Exception occurred in save_model method of the File_Operation class. Exception:  ' + str(e))
             self.logger_object.log(self.file_object,'Exited the save_model method of the File_Operation class')
 
+    def find_correct_model_file(self, cluster_number):
+        self.logger_object.log(self.file_object, 'Entered the find_correct_model_file method of the File_Operation class')
+        try:
+            self.cluster_number = cluster_number
+            self.directory_name = self.model_directory
+            self.list_of_model_files = []
+            self.list_of_files = os.listdir(self.directory_name)
+            for self.file in self.list_of_files:
+                try:
+                    if self.file.index(str(self.cluster_number)) != 1:
+                        self.model_name = self.file
+                except:
+                    continue
+            self.model_name = self.model_name.split(".")[0]
+            self.logger_object.log(self.file_object, 'model file %s loaded' % filename)
+            self.logger_object.log(self.file_object, "Exited the find_correct_model_file method of the File_Operation class")
+            return self.model_name
+        except Exception as e:
+            self.logger_object.log(self.file_object,'*** Exception occurred in find_correct_model_file method of the File_Operation class. Exception:  ' + str(e))
+            self.logger_object.log(self.file_object,'Exited the find_correct_model_file method of the File_Operation class')
 
 
 
 
-
-    # def template(self, model, filename):
-    #     self.logger_object.log(self.file_object, 'Entered the save_model method of the File_Operation class')
-    #     try:
-    #
-    #     except Exception as e:
-    #         self.logger_object.log(self.file_object,'*** Exception occurred in save_model method of the File_Operation class. Exception:  ' + str(e))
-    #         self.logger_object.log(self.file_object,'Exited the save_model method of the File_Operation class')
+   
