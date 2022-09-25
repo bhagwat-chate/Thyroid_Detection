@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from kneed import KneeLocator
 from file_operations.file_methods import File_Operation
-
+import numpy as np
 
 class KMeansClustering:
     """
@@ -45,7 +45,7 @@ class KMeansClustering:
             self.file_op = File_Operation(self.file_object, self.logger_object)
             self.save_model = self.file_op.save_model(self.kmeans, 'KMeans')
             self.data['cluster'] = self.y_kmeans
-            self.logger_object.log(self.file_object, " clusters created, cluster count: "+str(self.kn.knee))
+            self.logger_object.log(self.file_object, "Clusters created, cluster count: "+str(len(np.unique(self.y_kmeans))))
             self.logger_object.log(self.file_object, "Exited the create_clusters method of the KMeansClustering class")
             return self.data
         except Exception as e:

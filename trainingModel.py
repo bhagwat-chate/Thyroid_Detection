@@ -41,9 +41,25 @@ class trainModel:
             self.logger_object.log(self.file_object, "data preprocessing complete\n")
             self.logger_object.log(self.file_object, "start of clustering operation")
 
-            X.to_csv("test/features.csv", index=False)
             cluster = KMeansClustering(self.file_object, self.logger_object)
             numberOfClusters = cluster.elbow_plot(X)
+            X = cluster.create_clusters(X, numberOfClusters)
+
+            #create a new column in the dataset consisting of the corresponding cluster assignments.
+            X['Labels']=Y
+            list_of_clusters = X['cluster'].unique()
+
+            """parsing all the clusters and looking for the best ML algorithm to fit on individual cluster"""
+
+            for i in list_of_clusters:
+                cluster_data = X[X['cluster'] == i]
+                cluster_features = cluster_data.drop(['Labels','cluster'], axis=1)
+                cluster_label = cluster_data['Labels']
+
+                x_train, x_test, y_train, y_test = train_test_split(cluster_features, cluster_label, test_size=1/3, random_state=355)
+                model_finder = tuner.Model_Finder(self.file_object, self.logger_object)
+
+                best_model_name, best_model = model_finder.get_best_model(x_train, y_train, x_test, y_test)
 
             self.logger_object.log(self.file_object, "Model training complete")
             self.logger_object.log(self.file_object, "Exited the trainingModel method of the trainModel class")

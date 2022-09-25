@@ -1,18 +1,18 @@
-2022-09-25 / 07:07:49		Training raw data file validation start!
-2022-09-25 / 07:07:49		Delete existing good data training directory (if any)
-2022-09-25 / 07:07:49		Delete existing bad data training directory (if any)
-2022-09-25 / 07:07:49		Delete existing good & bad data training directories
-2022-09-25 / 07:07:49		Fetch values from schema file
-2022-09-25 / 07:07:50		validate Column Length
-2022-09-25 / 07:07:50		validation file name raw
-2022-09-25 / 07:07:50		validate missing values in whole column
-2022-09-25 / 07:07:50		move bad files to archive Bad directory
-2022-09-25 / 07:07:50		Training raw data file validation complete!
+2022-09-25 / 07:40:28		Training raw data file validation start!
+2022-09-25 / 07:40:28		Delete existing good data training directory (if any)
+2022-09-25 / 07:40:28		Delete existing bad data training directory (if any)
+2022-09-25 / 07:40:28		Delete existing good & bad data training directories
+2022-09-25 / 07:40:28		Fetch values from schema file
+2022-09-25 / 07:40:28		validate Column Length
+2022-09-25 / 07:40:28		validation file name raw
+2022-09-25 / 07:40:28		validate missing values in whole column
+2022-09-25 / 07:40:28		move bad files to archive Bad directory
+2022-09-25 / 07:40:28		Training raw data file validation complete!
 
-2022-09-25 / 07:07:50		Database operations start!
-2022-09-25 / 07:07:50		Create database
-2022-09-25 / 07:07:50		Create table
-2022-09-25 / 07:07:50		Impute missing values
-2022-09-25 / 07:07:51		Load data in to table
-2022-09-25 / 07:07:52		Export data for training
-2022-09-25 / 07:07:52		Database operations complete!
+2022-09-25 / 07:40:28		Database operations start!
+2022-09-25 / 07:40:28		Create database
+2022-09-25 / 07:40:28		Create table
+2022-09-25 / 07:40:28		Impute missing values
+2022-09-25 / 07:40:29		Load data in to table
+2022-09-25 / 07:40:30		Export data for training
+2022-09-25 / 07:40:30		Database operations complete!

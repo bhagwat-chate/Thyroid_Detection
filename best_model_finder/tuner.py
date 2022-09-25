@@ -49,7 +49,7 @@ class Model_Finder:
             self.param_grid_knn = {
                 'algorithm': ['ball_tree', 'kd_tree', 'brute'],
                 'leaf_size': [10, 17, 24, 28, 30, 35],
-                'n_neighbours': [4, 5, 8, 10, 1],
+                'n_neighbors': [4, 5, 8, 10, 1],
                 'p': [1, 2]
             }
             self.grid = GridSearchCV(self.knn, self.param_grid_knn, verbose=3, cv=5)
@@ -57,12 +57,12 @@ class Model_Finder:
 
             self.algorithm = self.grid.best_params_['algorithm']
             self.leaf_size = self.grid.best_params_['leaf_size']
-            self.n_neighbours = self.grid.best_params_['n_neighbours']
+            self.n_neighbors = self.grid.best_params_['n_neighbors']
             self.p = self.grid.best_params_['p']
 
-            self.knn = KNeighborsClassifier(algorithm=self.algorithm, leaf_size=self.leaf_size, n_neighbors=self.n_neighbours, p=self.p, n_jobs=-1)
+            self.knn = KNeighborsClassifier(algorithm=self.algorithm, leaf_size=self.leaf_size, n_neighbors=self.n_neighbors, p=self.p, n_jobs=-1)
             self.knn.fit(train_x, train_y)
-            self.logger_object.log(self.file_object, " KNN best parameters "+str(self.grid.best_params_))
+            self.logger_object.log(self.file_object, "KNN best parameters "+str(self.grid.best_params_))
             self.logger_object.log(self.file_object, "Exited the get_best_params_for_knn method of the Model_Finder class")
             return self.knn
         except Exception as e:
@@ -91,14 +91,13 @@ class Model_Finder:
             else:
                 self.random_forest_score = roc_auc_score((test_y), self.prediction_random_forest, multi_class='ovr')
                 self.logger_object.log(self.file_object, "AUC for Random Forest: " + str(self.random_forest_score))
+            self.logger_object.log(self.file_object, "Best model returned")
+            self.logger_object.log(self.file_object, "Exited the get_best_model method of the Model_Finder class")
 
             if self.random_forest_score < self.knn_score:
                 return 'KNN', self.knn
             else:
                 return 'RandomForest', self.random_forest
-
-            self.logger_object.log(self.file_object, "Best model returned")
-            self.logger_object.log(self.file_object, "Exited the get_best_model method of the Model_Finder class")
         except Exception as e:
             self.logger_object.log(self.file_object, '*** Exception occurred in get_best_model method of the Model_Finder class. Exception: ' + str(e))
             self.logger_object.log(self.file_object, 'Exited the get_best_model method of the Model_Finder class')

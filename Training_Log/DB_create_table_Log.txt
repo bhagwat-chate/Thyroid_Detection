@@ -1,4 +1,4 @@
-2022-09-25 / 07:07:50		connected with database 'test'
-2022-09-25 / 07:07:50		Table 'Thyroid' doesn't exist in database 'test'
-2022-09-25 / 07:07:50		*** Exception occurred in the method 'createTable' of class 'DBOperation'.:  1050 (42S01): Table 'thyroid' already exists
-2022-09-25 / 07:07:50		database 'test' connection closed
+2022-09-25 / 07:40:28		connected with database 'test'
+2022-09-25 / 07:40:28		Table 'Thyroid' doesn't exist in database 'test'
+2022-09-25 / 07:40:28		*** Exception occurred in the method 'createTable' of class 'DBOperation'.:  1050 (42S01): Table 'thyroid' already exists
+2022-09-25 / 07:40:28		database 'test' connection closed
