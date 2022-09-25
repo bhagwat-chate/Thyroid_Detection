@@ -1,0 +1,22 @@
+2022-09-25 / 07:07:50		Connecting with MySQL server
+2022-09-25 / 07:07:50		Connected with MySQL server
+2022-09-25 / 07:07:50		Check database 'test' existence
+2022-09-25 / 07:07:50		Database 'test' exist
+2022-09-25 / 07:07:50		Database test connection created successfully
+2022-09-25 / 07:07:50		Connecting with MySQL server
+2022-09-25 / 07:07:50		Connected with MySQL server
+2022-09-25 / 07:07:50		Check database 'test' existence
+2022-09-25 / 07:07:50		Database 'test' exist
+2022-09-25 / 07:07:50		Database test connection created successfully
+2022-09-25 / 07:07:50		database 'test' connection closed
+2022-09-25 / 07:07:50		Connecting with MySQL server
+2022-09-25 / 07:07:51		Connected with MySQL server
+2022-09-25 / 07:07:51		Check database 'test' existence
+2022-09-25 / 07:07:51		Database 'test' exist
+2022-09-25 / 07:07:51		Database test connection created successfully
+2022-09-25 / 07:07:51		database: 'test' connection closed successfully
+2022-09-25 / 07:07:51		Connecting with MySQL server
+2022-09-25 / 07:07:51		Connected with MySQL server
+2022-09-25 / 07:07:51		Check database 'Thyroid' existence
+2022-09-25 / 07:07:51		Database 'Thyroid' exist
+2022-09-25 / 07:07:51		Database Thyroid connection created successfully

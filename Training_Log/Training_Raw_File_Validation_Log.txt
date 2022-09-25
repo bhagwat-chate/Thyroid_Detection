@@ -1,0 +1,37 @@
+2022-09-25 / 07:07:49		Entered into the method 'deleteExistingGoodDataTrainingFolder' of class 'Raw_Data_Validation'.
+2022-09-25 / 07:07:49		Good_Raw directory deleted successfully.
+2022-09-25 / 07:07:49		Exited from the method 'deleteExistingGoodDataTrainingFolder' of class 'Raw_Data_Validation'.
+
+2022-09-25 / 07:07:49		Entered into the method 'deleteExistingBadDataTrainingFolder' of class 'Raw_Data_Validation'.
+2022-09-25 / 07:07:49		'Bad_Raw' directory not available for delete
+2022-09-25 / 07:07:49		Exited from the method 'deleteExistingBadDataTrainingFolder' of class 'Raw_Data_Validation'.
+
+2022-09-25 / 07:07:49		Entered into the method 'createDirectoryGoodBadRawData' of class 'Raw_Data_Validation'.
+2022-09-25 / 07:07:49		Training_Raw_Files_Validated/Good_Raw & Bad_Raw directory created.
+2022-09-25 / 07:07:49		Exited from the method 'createDirectoryGoodBadRawData' of class 'Raw_Data_Validation'.
+
+2022-09-25 / 07:07:49		Entered into the method 'valuesFromSchema' of class 'Raw_Data_Validation'.
+2022-09-25 / 07:07:49		Length Of Date Stamp In File:: 7	Length Of Time Stamp In File:: 13	Number Of Columns:: 30
+2022-09-25 / 07:07:49		Exited from the method 'valuesFromSchema' of class 'Raw_Data_Validation'.
+
+2022-09-25 / 07:07:49		Entered into the method 'validateColumnLength' of class 'Raw_Data_Validation'.
+2022-09-25 / 07:07:50		Column length validation complete!
+2022-09-25 / 07:07:50		Exited from the method 'validateColumnLength' of class 'Raw_Data_Validation'.
+
+2022-09-25 / 07:07:50		Entered into the method 'validationFileNameRaw' of class 'Raw_Data_Validation'.
+2022-09-25 / 07:07:50		validation of file name raw complete!
+2022-09-25 / 07:07:50		Exited from the method 'validationFileNameRaw' of class 'Raw_Data_Validation'.
+
+2022-09-25 / 07:07:50		Entered into the method 'validateMissingValuesInWholeColumn' of class 'Raw_Data_Validation'.
+2022-09-25 / 07:07:50		validation of missing values in whole column complete.
+2022-09-25 / 07:07:50		Exited from the method 'validateMissingValuesInWholeColumn' of class 'Raw_Data_Validation'.
+
+2022-09-25 / 07:07:50		Entered into the method 'deleteExistingBadDataTrainingFolder' of class 'Raw_Data_Validation'.
+2022-09-25 / 07:07:50		'Bad_Raw' directory deleted successfully.
+2022-09-25 / 07:07:50		Exited from the method 'deleteExistingBadDataTrainingFolder' of class 'Raw_Data_Validation'.
+
+2022-09-25 / 07:07:50		Entered into the method 'moveBadFilesToArchiveBad' of class 'Raw_Data_Validation'.
+2022-09-25 / 07:07:50		Files successfully moved to: TrainingArchiveBadData/BadData_2022-09-25_07_07_50.725572
+2022-09-25 / 07:07:50		Training Bad Raw Data archive complete, Bad Raw directory deleted.
+2022-09-25 / 07:07:50		Exited from the method 'moveBadFilesToArchiveBad' of class 'Raw_Data_Validation'.
+

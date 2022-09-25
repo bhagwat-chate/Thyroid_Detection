@@ -25,15 +25,15 @@ class KMeansClustering:
                 wcss.append(kmeans.inertia_)
             plt.plot(range(1,11), wcss)
             plt.title("The Elbow Method")
-            plt.xlable("Number of clusters")
+            plt.xlabel("Number of clusters")
             plt.ylabel("WCSS")
             plt.savefig("data_preprocessing/KMeans_elbow_plot.PNG")
-            self.kn = KneeLocator(range(1, 11), wcss, curvw = 'convex', direction='decreasing')
-            self.logger_object.log(self.file_object, "done")
-            self.logger_object.log(self.file_object, "Exited the elbow_plot method of the KMeansClustering class")
+            self.knn = KneeLocator(range(1, 11), wcss, curve='convex', direction='decreasing')
+            self.logger_object.log(self.file_object, "Optimal number of clusters finding complete")
+            self.logger_object.log(self.file_object, "Exited the elbow_plot method of the KMeansClustering class\n")
             return self.knn.knee
         except Exception as e:
-            self.logger_object.log(self.file_object,'*** Exception occurred in elbow_plot method of the KMeansClustering class. Exception:  ' + str(e))
+            self.logger_object.log(self.file_object,'*** Exception occurred in elbow_plot method of the KMeansClustering class. Exception: ' + str(e))
             self.logger_object.log(self.file_object,'Exited the elbow_plot method of the KMeansClustering class')
 
     def create_clusters(self, data, number_of_clusters):

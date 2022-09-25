@@ -12,7 +12,7 @@ class data_getter:
         self.file_object = file_object
         self.logger_object = logger_object
 
-    def get_data(self):
+    def get_data(self, trainData):
         """
         Method Name: get_data
         Description: This method reads the data from source.
@@ -25,8 +25,9 @@ class data_getter:
         """
         self.logger_object.log(self.file_object, "Entered into the get_data method of the class data_getter")
         try:
-            self.data = pd.read_csv(self.training_file)
-            self.logger_object.log(self.file_object, "Data load successful. Exit the get_data method")
+            self.data = pd.read_csv(trainData)
+            self.logger_object.log(self.file_object, "Data load successful")
+            self.logger_object.log(self.file_object, "Exit the get_data method\n")
             return self.data
         except Exception as e:
-            self.logger_object.log(self.file_object, "*** Exception occurred in get_data method, error: %s" %e)
+            self.logger_object.log(self.file_object, "*** Exception occurred in get_data method, error: %s" % e)

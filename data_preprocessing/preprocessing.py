@@ -38,7 +38,7 @@ class Preprocessor:
         try:
             self.X = data.drop(labels=label_column_name, axis=1)
             self.Y = data[label_column_name]
-            self.logger_object.log(self.file_object, 'data and label separation done')
+            self.logger_object.log(self.file_object, 'data and label separation complete')
             self.logger_object.log(self.file_object, 'Exited the separate_label_feature method of the Preprocessor class\n')
             return self.X, self.Y
         except Exception as e:
@@ -88,9 +88,12 @@ class Preprocessor:
                 df_with_null['columns'] = data.columns
                 df_with_null['missing_values_count'] = np.asarray(data.isna().sum())
                 df_with_null.to_csv("data_preprocessing/null_values.csv", index=False)
-                self.logger_object.log(self.file_object, 'NULL value check complete')
+                self.logger_object.log(self.file_object, 'NULL value present, NULL value check complete')
                 self.logger_object.log(self.file_object, 'Exited the is_null_present method of the Preprocessor class\n')
-                # return self.null_present
+            else:
+                self.logger_object.log(self.file_object, 'No NULL value, NULL value check complete')
+                self.logger_object.log(self.file_object, 'Exited the is_null_present method of the Preprocessor class\n')
+            return self.null_present
         except Exception as e:
             self.logger_object.log(self.file_object,'*** Exception occurred in is_null_present method of the Preprocessor class. Exception:  ' + str(e))
             self.logger_object.log(self.file_object,'Exited the is_null_present method of the Preprocessor class')
@@ -106,7 +109,7 @@ class Preprocessor:
             self.data = pd.get_dummies(self.data, columns=['referral_source'])
             encode = LabelEncoder().fit(self.data['Class'])
             self.data['Class'] = encode.transform(self.data['Class'])
-            self.data['TBG_measured'] = self.data['TBG_measured'].map({'f': 0, 't': 1})
+            # self.data['TBG_measured'] = self.data['TBG_measured'].map({'f': 0, 't': 1})
 
             with open('EncoderPickle/enc.pickle', 'wb') as file:
                 pickle.dump(encode, file)
@@ -117,6 +120,7 @@ class Preprocessor:
         except Exception as e:
             self.logger_object.log(self.file_object,'*** Exception occurred in encode_categorical_values method of the Preprocessor class. Exception:  ' + str(e))
             self.logger_object.log(self.file_object, 'Exited the encode_categorical_values method of the Preprocessor class')
+            raise Exception()
 
     def encode_categorical_values_prediction(self, data):
         self.logger_object.log(self.file_object, 'Entered the encode_categorical_values_prediction method of the Preprocessor class')
@@ -130,7 +134,7 @@ class Preprocessor:
                         self.data[column] = self.data[column].map({self.data[column].unique()[0]: 0})
                     else:
                         self.data[column] = self.data[column].map({self.data[column].unique()[0]: 1})
-                elif self.data[column].unique() == 2:
+                elif self.data[column].nunique() == 2:
                     self.data[column] = self.data[column].map({'f': 0, 't': 1})
             self.data = pd.get_dummies(self.data, columns=['referral_source'])
             self.logger_object.log(self.file_object, 'Categorical feature encoding complete')
@@ -145,23 +149,31 @@ class Preprocessor:
         self.data = data
         self.imb_threshold_percentage = imb_threshold_percentage
         try:
-            data_negative = self.data[self.data['Class'] == "negative"]
-            data_compensated_hypothyroid = self.data[self.data['Class'] == "compensated_hypothyroid"]
-            data_primary_hypothyroid = self.data[self.data['Class'] == "primary_hypothyroid"]
-            class_record_len = [len(data_negative), len(data_compensated_hypothyroid), len(data_primary_hypothyroid)]
+            data_0 = self.data[self.data['Class'] == 0]
+            data_1 = self.data[self.data['Class'] == 1]
+            data_2 = self.data[self.data['Class'] == 2]
+            data_3 = self.data[self.data['Class'] == 3]
+            class_record_len = [len(data_0), len(data_1), len(data_2), len(data_3)]
 
-            data_negative_per = len(data_negative)/len(data)*100
-            data_compensated_hypothyroid_per = len(data_compensated_hypothyroid)/len(data)*100
-            data_primary_hypothyroid_per = len(data_primary_hypothyroid)/len(data)*100
-            class_record_per = [data_negative_per, data_compensated_hypothyroid_per, data_primary_hypothyroid_per]
+            data_0_per = len(data_0)/len(self.data)*100
+            data_1_per = len(data_1)/len(self.data)*100
+            data_2_per = len(data_2)/len(self.data)*100
+            data_3_per = len(data_3)/len(self.data)*100
+            class_record_per = [data_0_per, data_1_per, data_2_per, data_3_per]
 
-            if any(class_label < self.imb_threshold_percentage for class_label in class_record_per):
-                self.logger_object.log(self.file_object, 'Need to perform data balance operation')
-                data_compensated_hypothyroid_up = resample(data_compensated_hypothyroid, replace=True, n_samples=max(class_record_len)-len(data_compensated_hypothyroid), random_state=1234)
-                data_primary_hypothyroid_up = resample(data_primary_hypothyroid, replace=True, n_samples=max(class_record_len)-len(data_primary_hypothyroid), random_state=1234)
-                self.data = pd.concat([data_negative, data_compensated_hypothyroid_up, data_primary_hypothyroid_up])
-            else:
-                self.logger_object.log(self.file_object, 'No need to perform data balance operation')
+            if data_0_per < max(class_record_per) and (data_0_per < self.imb_threshold_percentage):
+                data_0_up = resample(data_0, replace=True, n_samples=max(class_record_len)-len(data_0), random_state=1234)
+
+            # if data_1_per < max(class_record_per) and (data_1_per < self.imb_threshold_percentage): # this is the major class. here conditions fails & get error access before assign
+            #     data_1_up = resample(data_1, replace=True, n_samples=max(class_record_len)-len(data_1), random_state=1234)
+
+            if data_2_per < max(class_record_per) and (data_2_per < self.imb_threshold_percentage):
+                data_2_up = resample(data_2, replace=True, n_samples=max(class_record_len)-len(data_2), random_state=1234)
+
+            if data_3_per < max(class_record_per) and (data_3_per < self.imb_threshold_percentage):
+                data_3_up = resample(data_3, replace=True, n_samples=max(class_record_len)-len(data_3), random_state=1234)
+
+            self.data = pd.concat([data_0_up, data_2_up, data_3_up])
             self.logger_object.log(self.file_object, 'Exited the handle_imbalance_dataset method of the Preprocessor class\n')
             return self.data
         except Exception as e:
@@ -174,7 +186,7 @@ class Preprocessor:
         try:
             imputer = KNNImputer(n_neighbors=3, weights='uniform', missing_values=np.nan)
             self.new_array = imputer.fit_transform(self.data)
-            self.new_data = pd.DataFrame(data=self.new_array, columns=self.data.columns[1:])
+            self.new_data = pd.DataFrame(data=self.new_array, columns=self.data.columns)
             self.logger_object.log(self.file_object, 'Impute data complete')
             self.logger_object.log(self.file_object, 'Exited the impute_missing_value method of the Preprocessor class\n')
             return self.new_data
